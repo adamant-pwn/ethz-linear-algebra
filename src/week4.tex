@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 4},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} Compute with matrices:  
+
+\begin{enumerate}
+    \item do elimination and back substitution on square systems of linear equations, explain when and why this works or fails;
+    \item define the inverse of a matrix, compute inverses of 2 × 2 matrices, characterize when the inverse exists (The Inverse Theorem), invert a product of matrices and the transpose of a matrix.
+\end{enumerate}
+
+\paragraph{CR decomposition} $A = CR$, where $C$ are the independent columns of $A$.
+
+\paragraph{Elementary operations}
+\begin{itemize}
+    \item Subtract one row from \textit{another}, multiplied by any constant;
+    \item Multiply any row by a \textit{non-zero} scalar;
+    \item Swap any two rows;
+\end{itemize}
+
+Can be represented by multiplying with a matrix on the left (see week 3).
+
+\paragraph{Systems of linear equations} $Ax = b$. Solve by applying row operations to $A$ and $b$ until $A = I$.
+
+\paragraph{Inverse matrix} $A^{-1}$ s.t. $A A^{-1} = A^{-1} A = I$. Unique if exists. How to find?
+
+\begin{itemize}
+    \item Solve $A (A^{-1} e_k) = e_k$ for all $e_k$ to find the $k$-th column of $A^{-1}$.
+    \item Do elementary row operations on $I$ and $A$ simultaneously $\implies$ turns $A$ into $I$ and $I$ into $A^{-1}$.
+\end{itemize}
+
+\paragraph{Determinant} The volume of a hypercube spanned on $(v_1,\dots,v_n)$. Properties:
+\begin{enumerate}
+    \item $V(e_1, \dots, e_n) = 1$.
+    \item $V(a+b, \dots) = V(a, \dots) + V(b, \dots)$.
+    \item $V(\alpha v, \dots) = \alpha V(\dots)$.
+    \item $V(a, b, \dots) = -V(b, a, \dots)$.
+\end{enumerate}
+
+\paragraph{Inverse of $2 \times 2$} Try to derive Kramer's rule.
+
+\paragraph{In-class exercises}
+
+\begin{enumerate}
+    \item Let $p : \RR \to \RR$ be a polynomial of degree at most $2$, i.e. $p(x) = ax^2+bx+c$.
+    
+    Find $a$, $b$ and $c$ s.t. $p(-1)=0$, $p(0)=2$ and $p(1) = 2$.
+
+    $$
+    \begin{pmatrix}
+        (-1)^2 & -1 & 1 \\
+        0^2 & 0 & 1 \\
+        1^2 & 1 & 1
+    \end{pmatrix} \begin{pmatrix} a \\ b \\ c \end{pmatrix} = 
+    \begin{pmatrix}0 \\ 2 \\ 2\end{pmatrix}
+    $$
+    \item 
+\end{enumerate}
+
+\end{document}
