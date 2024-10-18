@@ -20,7 +20,7 @@ jobs:
       uses: xu-cheng/latex-action@v2
       with:
         compiler: latexmk
-        root_file: src/*.tex
+        root_file: '**/*.tex'
 
     - name: Move PDFs to /docs
       run: |
