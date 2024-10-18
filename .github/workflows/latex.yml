@@ -19,18 +19,13 @@ jobs:
     - name: Set up LaTeX
       uses: xu-cheng/latex-action@v2
       with:
-        compiler: latexmk  # latexmk will handle the compilation
-
-    - name: Compile all .tex files in /src
-      run: |
-        for file in src/*.tex; do
-          latexmk -pdf -cd "$file"  # Compile each .tex file individually
-        done
+        compiler: latexmk
+        root_file: src/*.tex
 
     - name: Move PDFs to /docs
       run: |
         mkdir -p docs
-        mv src/*.pdf docs/  # Move all compiled PDFs to the /docs folder
+        mv *.pdf docs/  # Move all compiled PDFs to the /docs folder
 
     - name: Commit and push generated PDFs to the repository
       run: |
