@@ -1,0 +1,43 @@
+name: Compile LaTeX Documents
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your desired branch.
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up LaTeX
+      uses: xu-cheng/latex-action@v2
+      with:
+        compiler: latexmk  # latexmk will handle the compilation
+
+    - name: Compile all .tex files in /src
+      run: |
+        for file in src/*.tex; do
+          latexmk -pdf -cd "$file"  # Compile each .tex file individually
+        done
+
+    - name: Move PDFs to /docs
+      run: |
+        mkdir -p docs
+        mv src/*.pdf docs/  # Move all compiled PDFs to the /docs folder
+
+    - name: Commit and push generated PDFs to the repository
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/*.pdf
+        git commit -m "Update compiled PDFs"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ github.token }}  # GitHub's token for authentication
