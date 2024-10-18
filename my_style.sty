@@ -1,0 +1,239 @@
+\ProvidesPackage{abc}
+
+% arguments
+\usepackage{kvoptions} 
+\SetupKeyvalOptions{prefix=ML@}
+\DeclareStringOption[Default title]{mytitle}
+\DeclareStringOption[white]{mycolor}
+\DeclareStringOption[rus]{mylang}
+\ProcessKeyvalOptions*
+
+% common packages
+\usepackage{wrapfig}
+\usepackage{mathtools}
+\usepackage{epigraph}
+\usepackage[\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{russian}\else{english}\fi]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{textgreek}
+\usepackage{diagbox}
+\usepackage{xcolor}
+\usepackage{subcaption}
+
+% for de Broglie length
+\usepackage[safe]{tipa}
+\newcommand{\lambdabar}{\mbox{\textipa{\textcrlambda}}}
+\newcommand{\debr}{\lambdabar_\text{дБ}}
+
+%TikZ-related packages
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\usepackage{calc}
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata,positioning,trees,chains,fit,shapes}
+
+\DeclareMathOperator{\DFT}{DFT}
+\DeclareMathOperator{\rev}{rev}
+\DeclareMathOperator{\slice}{slice}
+\definecolor{dkgreen}{rgb}{0,0.4,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{wrwrwr}{rgb}{0.38,0.38,0.38}
+\definecolor{dbwrru}{rgb}{0.85,0.38,0.07}
+\definecolor{dtsfsf}{rgb}{0.82,0.18,0.18}
+\definecolor{rvwvcq}{rgb}{0.08,0.39,0.75}
+\definecolor{wvvxds}{rgb}{0.39,0.34,0.82}
+\definecolor{ccqqqq}{rgb}{0.8,0,0}
+
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+
+% Special styles for exercises
+\newtheoremstyle{problem_sty}{10pt}{15pt}{\em}{}{\bf}{}{ }{Задача \thmnumber{#2}. (\thmnote{#3})   }
+\newtheoremstyle{extra_sty}{10pt}{15pt}{\em}{}{\bf}{}{ }{Задача \thmnumber{#2}*. (\thmnote{#3})   }
+\newtheoremstyle{option_sty}{10pt}{15pt}{\em}{}{\bf}{}{ }{Задача \thmnumber{#2}$^\circ$. (\thmnote{#3})   }
+
+% Theorems, lemms, definitions...
+\newtheorem*{theorem*}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Теорема}\else{Theorem}\fi}
+\newtheorem*{lemma*}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Лемма}\else{Lemma}\fi}
+\newtheorem{theorem}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Теорема}\else{Theorem}\fi}
+\newtheorem{corl}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Следствие}\else{Corollary}\fi}
+\newtheorem{claim}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Утверждение}\else{Claim}\fi}
+\newtheorem*{remark}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Замечание}\else{Remark}\fi}
+\newtheorem{defn}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Определение}\else{Definition}\fi}
+\newtheorem{lemma}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Лемма}\else{Lemma}\fi}
+\newtheorem{exmpl}{\ifnum\pdfstrcmp{\ML@mylang}{rus}=0{Пример}\else{Example}\fi}
+\newtheorem*{directive}{Указание}
+
+\theoremstyle{problem_sty}
+\newtheorem{problem}{a}
+
+\theoremstyle{extra_sty}
+\newtheorem{extra}{b}
+
+\theoremstyle{option_sty}
+\newtheorem{option}{c}
+
+% Frequently used letters
+
+\newcommand{\Pl}{\mathbf{P}}
+\newcommand{\NP}{\mathbf{NP}}
+\newcommand{\RP}{\mathbf{RP}}
+\newcommand{\BPP}{\mathbf{BPP}}
+\newcommand{\ZPP}{\mathbf{ZPP}}
+\newcommand{\coNP}{\mathbf{co-NP}}
+\newcommand{\NPC}{\mathbf{NP-complete}}
+\newcommand{\coNPC}{\mathbf{co-NP-complete}}
+
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\Ss}{\mathbb{S}}
+
+\newcommand{\AL}{\mathcal{A}}
+\newcommand{\BL}{\mathcal{B}}
+\newcommand{\CL}{\mathcal{C}}
+\newcommand{\GL}{\mathcal{G}}
+\newcommand{\HL}{\mathcal{H}}
+\newcommand{\EL}{\mathcal{E}}
+\newcommand{\IL}{\mathcal{I}}
+\newcommand{\LL}{\mathcal{L}}
+\newcommand{\RL}{\mathcal{R}}
+\newcommand{\TL}{\mathcal{T}}
+\newcommand{\VL}{\mathcal{V}}
+\newcommand{\NL}{\mathcal{N}}
+\newcommand{\ML}{\mathcal{M}}
+\newcommand{\XL}{\mathcal{X}}
+
+\newcommand{\BK}{\mathfrak{B}}
+\newcommand{\SK}{\mathfrak{S}}
+
+\newcommand{\simdif}{\bigtriangleup}
+%\newcommand{\super}{\textsuperscript}
+
+\newcommand{\al}{\alpha}
+\newcommand{\bb}{\beta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\sgm}{\sigma}
+\newcommand{\om}{\omega}
+
+\newcommand{\Om}{\Omega}
+
+%partial derivative
+\newcommand{\dd}{\partial}
+
+% Paired Delimeters
+\DeclarePairedDelimiter\inner{\langle}{\rangle}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}%
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}%
+\DeclarePairedDelimiter\round{[}{]}%
+\DeclarePairedDelimiter\bra{\langle}{|}%
+\DeclarePairedDelimiter\ket{|}{\rangle}%
+\DeclarePairedDelimiter\braket{\langle}{\rangle}%
+
+% Math operators
+\DeclareMathOperator{\otherwise}{otherwise}
+\DeclareMathOperator{\closure}{closure}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\mex}{mex}
+\DeclareMathOperator{\ravel}{ravel}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divv}{div}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\const}{const}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\for}{for}
+\DeclareMathOperator{\extr}{extr}
+\DeclareMathOperator{\ord}{ord}
+
+% Quick macro for 
+\newcommand{\topp}[2]{\overset{#2}{#1}}
+\newcommand{\bott}[2]{\underset{#2}{#1}}
+\newcommand{\lims}[2]{\topp{\bott{\longrightarrow}{#2}}{#1}}
+
+% Arrows
+\newcommand{\holds}{\hookrightarrow}
+\newcommand{\toto}{\rightrightarrows}
+\newcommand{\topto}[1]{\topp{\to}{#1}}
+\newcommand{\botto}[1]{\bott{\to}{#1}}
+\newcommand{\toptoto}[1]{\topp{\toto}{#1}}
+
+% Custom big aggregates
+\newcommand{\bigtimesRelay}[1][]{\overset{#1}{\underset{\bottom}{\times}}}
+\newcommand{\bigtimes}[1][]{
+    \def\bottom{{#1}}
+    \bigtimesRelay
+}
+
+% Fancy page style
+\usepackage{fancybox,fancyhdr}
+\fancyhead[R]{\colorbox{black}{\color{\ML@mycolor}{\textbf{\large \thepage}}}}  %% odd-right 
+\fancyhead[L]{\colorbox{black}{\textbf{\thesection}}}% odd-left
+\fancyhead[C]{\ML@mytitle}
+\fancyfoot[C,L,R]{}
+
+% Narrow margins, so no one would put here their marvellous proof!
+\usepackage[b5paper,left=9mm,right=8mm, top=17mm,bottom=15mm,bindingoffset=0cm]{geometry}
+
+\definecolor{urlcolor}{HTML}{0645AD} % цвет гиперссылок
+\hypersetup{pdfstartview=FitH, linkcolor=black,urlcolor=urlcolor, colorlinks=true}
+
+\pagestyle{fancy}
+
+% Fancy code snippets
+\usepackage{listings}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{dkgreen}{rgb}{0,0.4,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+
+\def\commentstyle{\color{gray}}
+\lstset{ %
+extendedchars=\true,
+  language=C++,                   % the language of the code
+  basicstyle=\footnotesize\ttfamily, % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\footnotesize\color{black},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=0.7em,                % how far the line-numbers are from the code
+  backgroundcolor=\color{lightgray}, % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  identifierstyle=\color{blue!25!black},  
+  keywordstyle=\color{blue!90!black},      % keyword style
+  commentstyle=\commentstyle,     % comment style
+  stringstyle=\color{mauve},      % string literal style
+  escapeinside={\`}{\`},          % if you want to add a comment within your code
+  escapebegin=\commentstyle\footnotesize,
+  %morekeywords={n,k},             % if you want to add more keywords to the set
+  morecomment=[l][\color{dkgreen}]{\#}, % to color #include<cstdio> 
+  morecomment=[s][\commentstyle\color{gray!50!black}]{/**}{*/},
+  escapeinside=|,   % если нужно добавить комментарии в коде
+keepspaces=true
+}

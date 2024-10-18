@@ -1,0 +1,122 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 2},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} Compute with matrices:  
+
+\begin{enumerate}
+    \item matrix-vector multiplication, column space, row space, rank;
+    \item perform matrix multiplication, including matrix- vector, vector-matrix, scalar and outer product, distributivity, associativity.
+\end{enumerate}
+
+\paragraph{Basis} of a vector space is a maximal set of linearly independent vectors.
+
+\textbf{Equivalent definition}: $\mathbf{e_1}, \dots, \mathbf{e_n}$ s.t. any $\mathbf v \in V$ can be \textit{uniquely} represented as
+$$
+\mathbf v = v_1 \mathbf e_1 + \dots + v_n \mathbf e_n.
+$$
+
+The numbers $(v_1,\dots,v_n)$ are called \textbf{coordinates} of $\mathbf v$ in $\mathbf e_1,\dots,\mathbf e_n$.
+
+\paragraph{Linear map} between vector spaces $V$ and $W$ is a function $f : V \to W$, such that
+\begin{align*}
+\mathbf u + \mathbf v &\mapsto f(\mathbf u) + f(\mathbf v), \\
+k \mathbf v  &\mapsto k f(\mathbf v).
+\end{align*}
+
+Let $\mathbf e_i$ be the basis of $V$ and $\mathbf g_j$ be the basis of $W$. Then,
+$$
+f(\mathbf v) = v_1 f(\mathbf e_1) + \dots + v_n f(\mathbf e_n).
+$$
+
+So, $f$ is fully defined by $f(\mathbf e_1), \dots, f(\mathbf e_n)$:
+
+$$
+f(\mathbf e_k) = f_{k1} \mathbf g_1 + \dots + f_{km} \mathbf g_m.
+$$
+
+From this, we fully describe the linear map as
+\begin{align*}
+f(a_1 \mathbf e_1 + \dots + a_n \mathbf e_n) =& (a_1 f_{11} + \dots + a_n f_{n1}) \mathbf g_1 + \\
+& (a_1 f_{12} + \dots + a_n f_{n2}) \mathbf g_2 + \\
+& (a_1 f_{13} + \dots + a_n f_{n3}) \mathbf g_3 + \\
+& \dots + \\
+& (a_1 f_{1m} + \dots + a_n f_{nm}) \mathbf g_m \\
+\end{align*}
+
+This rewrites as
+$$
+\begin{cases}
+b_1 = a_1 f_{11} + a_2 f_{21} + \dots + a_n f_{n1}, \\
+b_2 = a_1 f_{12} + a_2 f_{22} + \dots + a_n f_{n2}, \\
+\dots, \\
+b_m = a_1 f_{1m} + a_2 f_{2m} + \dots + a_n f_{nm}.
+\end{cases}
+$$
+
+Or in a matrix form as
+$$
+\begin{pmatrix}
+b_1 \\ b_2 \\ \vdots \\ b_m
+\end{pmatrix} = 
+\begin{pmatrix}
+f_{11} & f_{21} & \dots & f_{n1} \\
+f_{12} & f_{22} & \dots & f_{n2} \\
+\vdots & \vdots & \ddots & \vdots \\
+f_{1m} & f_{2m} & \dots & f_{nm}
+\end{pmatrix} \begin{pmatrix}
+a_1 \\ a_2 \\ \vdots \\ a_n
+\end{pmatrix}.
+$$
+
+\paragraph{Matrix product} is defined in a way that $AB$ corresponds to the linear map $\mathbf x \mapsto A(B(\mathbf x))$.
+
+Columns of $A$ are $A \mathbf e_1, \dots, A \mathbf e_n \implies$ columns of $AB$ are $AB \mathbf e_1, \dots, AB \mathbf e_n$.
+
+\textbf{Interpretations}:
+
+\begin{enumerate}
+    \item $AB$ corresponds to applying $A$ to each column of $B$;
+    \item $AB$ corresponds to applying $B$ to each row of $A$;
+    \item $(AB)_{ij}$ is the dot product of the $i$-th row of $A$ and the $j$-th column of $B$.
+\end{enumerate}
+
+\paragraph{Dimension} of a vector space is the size of its basis.
+
+All bases have the same size.
+
+\paragraph{Row and column spaces} of a matrix are spans of their rows/columns.
+
+\paragraph{Matrix rank} is the dimension of its row/column space.
+
+\paragraph{Lemma 2.21} Let $A$ be an $m \times n$ matrix. The following statements are equivalent:
+\begin{enumerate}
+    \item $\operatorname{rank} A \leq k$;
+    \item There are vectors $\mathbf{v}_1,\dots,\mathbf{v}_k \in \mathbb R^m$ and $\mathbf{w}_1,\dots,\mathbf{w}_k \in \mathbb R^n$ such that $A = \sum\limits_{i=1}^k \mathbf{v}_i \mathbf{w}_i^\top$.
+    \item $A = BC$, where $B \in \mathbb R^{m \times k}$ and $C \in \mathbb R^{k \times n}$ (rank decomposition).
+\end{enumerate}
+
+\paragraph{In-class exercises}
+
+\begin{enumerate}
+    \item Let $m \in \mathbb N_{\geq 2}$ be arbitrary and consider the $m \times m$ matrix
+    $$
+    \begin{bmatrix}
+        a_{11} & a_{12} & \dots & a_{1m} \\
+        a_{21} & a_{22} & \dots & a_{2m} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \dots & a_{mm}
+    \end{bmatrix}
+    $$
+    with $a_{ij} = i + j$ for all $i,j \in \{1,2,\dots,m\}$. Determine the rank of $A$.
+    \item Show that $(AB)^\top = B^\top A^\top$.
+    \item A \textbf{conjugate} of $A$ is a matrix $A^*$ such that $\mathbf x \cdot A\mathbf y = A^* \mathbf x \cdot \mathbf y$. Find $A^*$.
+    \item A matrix is \textbf{orthogonal} if it preserves distances. When is a matrix orthogonal?
+\end{enumerate}
+
+\end{document}

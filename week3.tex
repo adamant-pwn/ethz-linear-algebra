@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 3},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} Compute with matrices:  
+
+\begin{enumerate}
+    \item explain the CR decomposition;
+    \item  linear transformations, visualizing linear transformations in 2d, properties of linear transformations, matrix representation of linear transformations;
+    \item systems of linear equations, systems of linear equations with unique solutions.
+\end{enumerate}
+
+\paragraph{Actions on rows/columns} $AB$ for $A \in \mathbb R^{n \times m}$ and $B \in \mathbb R^{m \times k}$ is interpreted as:
+
+\begin{enumerate}
+    \item Applying matrix $A$ to all columns of $B$;
+    \item Applying matrix $B$ to all rows of $A$.
+\end{enumerate}
+
+Let $A_i$ denote the $i$-th row and $A^j$ the $j$-th column:
+
+\begin{enumerate}
+    \item $(AB)_i$ is the linear combination of rows of $B_1,\dots,B_m$ with coefficients from $A_i$.
+    \item $(AB)^j$ is the linear combination of columns of $A^1,\dots,A^k$ with coefficients from $B^j$.
+\end{enumerate}
+
+\paragraph{Rank decomposition} Let $A$ be an $m \times n$ matrix. The following statements are equivalent:
+\begin{enumerate}
+    \item $\operatorname{rank} A \leq k$;
+    \item There are vectors $\mathbf{v}_1,\dots,\mathbf{v}_k \in \mathbb R^m$ and $\mathbf{w}_1,\dots,\mathbf{w}_k \in \mathbb R^n$ such that $A = \sum\limits_{i=1}^k \mathbf{v}_i \mathbf{w}_i^\top$.
+    \item $A = CR$, where $C \in \mathbb R^{m \times k}$ and $R \in \mathbb R^{k \times n}$ (rank decomposition).
+\end{enumerate}
+
+Columns of $C$ form a basis in the column space. Rows of $R$ form the basis in the row space. Multiplying $R$ by $C$ on the left defines the way rows of $A$ are represented as linear combinations of the rows of $R$, similar for $C$ multiplied by $R$ on the right.
+
+\paragraph{Systems of linear equations} Consider a system
+
+\begin{align*}
+&\begin{cases}
+a_{11} x_1 + \dots + a_{1n} x_n = b_1, \\
+a_{21} x_1 + \dots + a_{2n} x_n = b_2, \\
+\dots, \\
+a_{n1} x_1 + \dots + a_{nn} x_n = b_n.
+\end{cases} &\iff& Ax = b &\iff&
+\begin{pmatrix}
+    a_{11} & a_{12} & \dots & a_{1n} \\
+    a_{21} & a_{22} & \dots & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n1} & a_{n2} & \dots & a_{nn}
+\end{pmatrix} \begin{pmatrix}
+    x_1 \\ x_2 \\ \vdots \\ x_n
+\end{pmatrix} = \begin{pmatrix}
+    b_1 \\ b_2 \\ \vdots \\ b_n
+\end{pmatrix}& \\
+&\begin{cases}
+x_1 = b_1', \\
+x_2 = b_2', \\
+\dots, \\
+x_n = b_n'.
+\end{cases} &\iff& A^{-1} A x = A^{-1} b &\iff& \begin{pmatrix}
+    1 & 0 & \dots & 0 \\
+    0 & 1 & \dots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots & 1
+\end{pmatrix} \begin{pmatrix}
+    x_1 \\ x_2 \\ \vdots \\ x_n
+\end{pmatrix} = \begin{pmatrix}
+    b_1' \\ b_2' \\ \vdots \\ b_n'
+\end{pmatrix}&
+\end{align*}
+
+\paragraph{In-class exercises}
+
+\begin{enumerate}
+    \item Consider $T : \mathbb R^n \to \mathbb R$ for $n > 0$ defined as $T(x) = \sum\limits_{k=1}^n k x_k$.
+    Prove that $T$ is a linear transformation.
+    \item Consider $T : \mathbb R^n \to \mathbb R$ for $n \geq 2$ defined as $T(x) = \sum\limits_{k=1}^n (x_k)^k$.
+    Is $T(x)$ a linear transformation?
+\end{enumerate}
+
+\end{document}
