@@ -15,7 +15,7 @@
     \item Work with the span of vectors.
 \end{enumerate}
 
-\paragraph{Vector space} A \textbf{real vector space} is a set $V$ with $+ : V \times V \to V$ and $\cdot : \mathbb R \times V \to V$, such that
+\paragraph{Real vector space} is a set $V$ with $+ : V \times V \to V$ and $\cdot : \mathbb R \times V \to V$, such that
 
 \begin{enumerate}
     \item $V$ is a commutative group over $+$;
@@ -26,16 +26,16 @@
 
 Consequence: $0 \vec x = \vec 0$.
 
-\paragraph{Inner product space} An \textbf{inner product} is a map $\cdot : V \times V \to \mathbb R$, such that
+\paragraph{Inner product} is a map $\cdot : V \times V \to \mathbb R$, such that
 \begin{enumerate}
     \item Symmetry: $\vec x \cdot \vec y = \vec y \cdot \vec x$;
     \item Linearity: $(a\vec x + b\vec y) \cdot \vec z = a (\vec x \cdot \vec z) + b (\vec y \cdot \vec z)$;
     \item Positive-definite: $\vec x \cdot \vec x \geq 0$ and $\vec x \cdot \vec x = 0 \iff \vec x = 0$.
 \end{enumerate}
 
-In real vector spaces, standard scalar (dot) product of $(a_1,\dots,a_n)$ and $(b_1,\dots,b_n)$ is $a_1 b_1 + \dots + a_n b_n$.
+The standard scalar (dot) product of $(a_1,\dots,a_n)$ and $(b_1,\dots,b_n)$ is $a_1 b_1 + \dots + a_n b_n$.
 
-\paragraph{Normed vector space} A \textbf{norm} is a map $\|\cdot \| : V \to \mathbb R$, such that
+\paragraph{Norm} is a map $\|\cdot \| : V \to \mathbb R$, such that
 \begin{enumerate}
     \item Positive-definite: $\|\vec x\| \geq 0$ and $\|\vec x\| = 0 \iff \vec x = \vec 0$;
     \item Absolute homogeneity: $\|\lambda \vec x\| = |\lambda| \cdot \|\vec x\|$;
@@ -44,7 +44,7 @@ In real vector spaces, standard scalar (dot) product of $(a_1,\dots,a_n)$ and $(
 
 Distance between two vectors: $\|\vec x - \vec y\|$. In inner product spaces, $\|\vec x\| = \sqrt{\vec x \cdot \vec x}$.
 
-\paragraph{Cauchy-Schwarz inequality} For any $\vec x, \vec y \in V$, it holds that $$|\vec x \cdot \vec y| \leq \|\vec x\| \cdot \|\vec y\|$$
+\paragraph{Cauchy-Schwarz inequality} For any $\vec x, \vec y \in V$, we have $$ |\vec x \cdot \vec y| \leq \|\vec x\| \cdot \|\vec y\|$$
 
 Proof: Analyze $f(t) = \|\vec x - t \vec y \|^2$.
 
@@ -56,14 +56,14 @@ $$
 \vec x \cdot \vec y = \|x\| \|y\| \cos \theta
 $$
 
-\paragraph{Triangle inequality} For any $\vec x, \vec y \in V$, it holds that $$\|x + y\| \leq \|x\| + \|y\|$$
+\paragraph{Triangle inequality} For any $\vec x, \vec y \in V$, we have $$\|x + y\| \leq \|x\| + \|y\|$$
 
 \paragraph{In-class exercises}
 
 \begin{enumerate}
     \item Let $\vec 0 \in \mathbb R^m$ denote the vector whose entries are all zero. We say that a set $L$ is a line in $\mathbb R^m$
-if and only if there exists $\vec w \in \mathbb R^m$ with $\vec w \neq 0$ such that $L = \{\lambda \vec w : \lambda \in \mathbb R\}$. Let now $L$ be a line in $\mathbb R^m$ and let $\vec u$ be an arbitrary non-zero element of $L$. Prove that $L = \{\lambda \vec u : \lambda \in \mathbb R\}$.
-\item For two lines $L_1$ and $L_2$ in $\mathbb R^m$, prove that we have either $L_1 \cap L_2 = \{\vec 0\}$ or $L_1 \cap L_2 =
+if and only if there exists $\vec w \in \mathbb R^m$ with $\vec w \neq 0$ such that $L = \{\lambda \vec w : \lambda \in \mathbb R\}$. Let now $L$ be a line in $\mathbb R^m$ and let $\vec u$ be an arbitrary nonzero element of $L$. Prove $L = \{\lambda \vec u : \lambda \in \mathbb R\}$.
+\item For two lines $L_1$ and $L_2$ in $\mathbb R^m$, prove that we have $L_1 \cap L_2 = \{\vec 0\}$ or $L_1 \cap L_2 =
 L_1 = L_2$.
 \item There are three points $A,B,C \in \mathbb R^n$. You need to go from $A$ to $B$ without getting closer to $C$ than $r$. What is the length of the shortest path that satisfies this?
 \item Show that the following operations do not change the span:
@@ -75,8 +75,10 @@ L_1 = L_2$.
 $$
 \lambda_1 \vec v_1 + \dots + \lambda_n \vec v_n = \vec v
 $$
-for a given $\vec v$? Assume that $\vec v_i \cdot \vec v_j = 0$ when $i \neq j$. What if it doesn't hold?
+for a given $\vec v$? Assume that $\vec v_i \cdot \vec v_j = 0$ when $i \neq j$. What if it does not hold?
 \item Given a set $\vec v_1, \dots, \vec v_n$, find $\vec u_1, \dots, \vec u_n$ that is orthogonal and has the same span.
 \end{enumerate}
+
+Only first two exercises were actually covered.
 
 \end{document}

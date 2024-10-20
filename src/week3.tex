@@ -17,28 +17,32 @@
 
 \paragraph{Actions on rows/columns} $AB$ for $A \in \mathbb R^{n \times m}$ and $B \in \mathbb R^{m \times k}$ is interpreted as:
 
-\begin{enumerate}
-    \item Applying matrix $A$ to all columns of $B$;
-    \item Applying matrix $B$ to all rows of $A$.
-\end{enumerate}
+\begin{itemize}
+    \item Applying matrix $A$ to all columns of $B$ as $c \mapsto Ac$;
+    \item Applying matrix $B$ to all rows of $A$ as $r \mapsto rB$;
+    \item $(AB)_i$ is the linear combination of the rows $B_1,\dots,B_m$ with the coefficients from $A_i$;
+    \item $(AB)^j$ is the linear combination of the columns $A^1,\dots,A^k$ with the coefficients from $B^j$.
+\end{itemize}
 
-Let $A_i$ denote the $i$-th row and $A^j$ the $j$-th column:
-
-\begin{enumerate}
-    \item $(AB)_i$ is the linear combination of rows of $B_1,\dots,B_m$ with coefficients from $A_i$.
-    \item $(AB)^j$ is the linear combination of columns of $A^1,\dots,A^k$ with coefficients from $B^j$.
-\end{enumerate}
+Here, lower indices denote rows, and upper indices denote columns.
 
 \paragraph{Rank decomposition} Let $A$ be an $m \times n$ matrix. The following statements are equivalent:
 \begin{enumerate}
     \item $\operatorname{rank} A \leq k$;
-    \item There are vectors $\mathbf{v}_1,\dots,\mathbf{v}_k \in \mathbb R^m$ and $\mathbf{w}_1,\dots,\mathbf{w}_k \in \mathbb R^n$ such that $A = \sum\limits_{i=1}^k \mathbf{v}_i \mathbf{w}_i^\top$.
-    \item $A = CR$, where $C \in \mathbb R^{m \times k}$ and $R \in \mathbb R^{k \times n}$ (rank decomposition).
+    \item There are vectors $\mathbf{v}_1,\dots,\mathbf{v}_k \in \mathbb R^m$ and $\mathbf{w}_1,\dots,\mathbf{w}_k \in \mathbb R^n$ such that $A = \mathbf{v}_1 \mathbf{w}_1^\top + \dots + \mathbf{v}_k \mathbf{w}_k^\top$.
+    \item $A = CR$, where $C \in \mathbb R^{m \times k}$ and $R \in \mathbb R^{k \times n}$.
 \end{enumerate}
 
-When $k = \operatorname{rank} A$: Columns of $C$ form a basis in the column space. Rows of $R$ form a basis in the row space. Multiplying $R$ by $C$ on the left defines the way rows of $A$ are represented as linear combinations of the rows of $R$, similar for $C$ multiplied by $R$ on the right.
+When $\operatorname{rank} A=k$, $A=CR$ is called a rank decomposition of $A$, and
 
-\paragraph{Systems of linear equations} Consider a system
+\begin{itemize}
+    \item The columns of $C$ form a basis in the column space of $A$;
+    \item The columns of $R$ are the coordinates of the columns of $A$ in the basis of the columns of $C$;
+    \item The rows of $R$ form a basis in the row space of $A$;
+    \item The rows of $C$ are the coordinates of the rows of $A$ in the basis of the rows of $R$.
+\end{itemize}
+
+\paragraph{Systems of linear equations} Can be represented in matrix form. If the solution is unique, it is found by applying transforms on the rows until you get a system with the unit matrix: $(A|b) \mapsto (I|b')$.
 
 \begin{align*}
 &\begin{cases}
