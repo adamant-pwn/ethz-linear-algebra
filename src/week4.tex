@@ -14,13 +14,13 @@
     \item define the inverse of a matrix, compute inverses of 2 × 2 matrices, characterize when the inverse exists (The Inverse Theorem), invert a product of matrices and the transpose of a matrix.
 \end{enumerate}
 
-\paragraph{CR decomposition} $A = CR$, where $C$ are the independent columns of $A$.
+\paragraph{CR decomposition} $A = CR$, where $C$ are \textit{the} independent columns of $A$.
 
 \paragraph{Elementary operations}
 \begin{itemize}
-    \item Subtract one row from \textit{another}, multiplied by any constant;
-    \item Multiply any row by a \textit{non-zero} scalar;
-    \item Swap any two rows;
+    \item $\boxed{A_i \gets A_i - c A_j}$ for $j \neq i$ and $c \in \RR$;
+    \item $\boxed{A_i \gets c A_i}$ for any $c \neq 0$;
+    \item $\boxed{A_i, A_j \gets A_j, A_i}$ for any $i \neq j$;
 \end{itemize}
 
 Can be represented by multiplying with a matrix on the left (see week 3).
@@ -31,7 +31,7 @@ Can be represented by multiplying with a matrix on the left (see week 3).
 
 \begin{itemize}
     \item Solve $A (A^{-1} e_k) = e_k$ for all $e_k$ to find the $k$-th column of $A^{-1}$.
-    \item Do elementary row operations on $I$ and $A$ simultaneously $\implies$ turns $A$ into $I$ and $I$ into $A^{-1}$.
+    \item Do elementary row operations on $I$ and $A$ simultaneously: $(A, I) \mapsto (I, A^{-1})$.
 \end{itemize}
 
 \paragraph{Determinant} The volume of a hypercube spanned on $(v_1,\dots,v_n)$. Properties:
@@ -42,7 +42,7 @@ Can be represented by multiplying with a matrix on the left (see week 3).
     \item $V(a, b, \dots) = -V(b, a, \dots)$.
 \end{enumerate}
 
-\paragraph{Inverse of $2 \times 2$} Try to derive Kramer's rule.
+\paragraph{Inverse of $2 \times 2$} Try to derive Cramer's rule.
 
 \paragraph{In-class exercises}
 
@@ -59,7 +59,7 @@ Can be represented by multiplying with a matrix on the left (see week 3).
     \end{pmatrix} \begin{pmatrix} a \\ b \\ c \end{pmatrix} = 
     \begin{pmatrix}0 \\ 2 \\ 2\end{pmatrix}
     $$
-    \item 
+    \item Assume that $Ax=b$ doesn't have an exact solution. Find $x$ that minimizes $\|Ax-b\|$.
 \end{enumerate}
 
 \end{document}
