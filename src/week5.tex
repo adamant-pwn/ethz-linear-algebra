@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 5},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} Compute with matrices:  
+
+\begin{enumerate}
+    \item derive and explain the LU factorization from elimination;
+    \item compute the REF and RREF of a given $m \times n$ matrix $A$, explain why it equals $R$ in $A=CR$;
+\end{enumerate}
+
+\paragraph{LUP factorization} Do Gaussian elimination and reduce $A$ to upper-triangular form $U$:
+
+$$
+M_n \dots M_1 A = U \iff A = (M_1^{-1} \dots M_n^{-1}) U
+$$
+
+To recover $L$, keep a matrix $B = I$. Whenever applying $M_i$ to $A$, apply $M_i^{-\top}$ to $B$. In the end,
+
+$$
+B = M_n^{-\top} \dots M_1^{-\top} \iff B^\top = M_1^{-1} \dots M_n^{-1}
+$$
+
+So, we get the decomposition $A = B^\top U$. If $B$ is not lower-triangular, its rows can be sorted such that $L = P B^\top$ is lower-triangular. Thus, $PA = LU$.
+
+\paragraph{REF and RREF} Gauss-Jordan elimination turns a matrix into the row-echelon form:
+
+$$
+\begin{bmatrix}
+1 & 0 & a_1 & 0 & b_1 \\
+0 & 1 & a_2 & 0 & b_2 \\
+0 & 0 & 0 & 1 & b_3
+\end{bmatrix}
+$$
+
+Reduced row-echelon form: Remove zero rows. Other conventions:
+
+\begin{enumerate}
+    \item REF: Not necessary to keep pivots $1$ and elements above them $0$;
+    \item RREF: What we call REF in this course.
+\end{enumerate}
+
+\paragraph{In-class exercises}
+
+\begin{enumerate}
+\item Elimination, back substitution, LU factorization:
+\begin{enumerate}
+    \item Compute an LU factorization of the matrix
+    $$
+    A = \begin{bmatrix}
+        2 & -12 & 6 \\
+        1 & -4 & 1 \\
+        2 & -11 & -5
+    \end{bmatrix}
+    $$
+    \item For the factorization above, solve $Ly = b$ with
+    $$
+    b = \begin{bmatrix}
+        4 \\ 4 \\ 25
+    \end{bmatrix}
+    $$
+    \item For the $y$ from the previous exercise, solve $Ux = y$.
+    \item Prove that $Ax = b$.
+\end{enumerate}
+\item Consider the matrix
+    $$
+    A = \begin{bmatrix}
+        1 & 2 & 0 & 3 \\
+        2 & 4 & 1 & 2 \\
+        3 & 6 & 2 & 5
+    \end{bmatrix}
+    $$
+    with $CR$-decomposition
+    $$
+    A = \begin{bmatrix}
+        1 & 0 \\ 2 & 1 \\ 3 & 2
+    \end{bmatrix}\begin{bmatrix}
+        1 & 2 & 0 & 3 \\
+        0 & 0 & 1 & -2
+    \end{bmatrix} = CR
+    $$
+    Let $R_0$ be the matrix in row echelon form obtained by performing Gauss-Jordan elimination on $A$. Determine $R_0$ by performing the elimination and verify Theorem 3.24 by checking that $R$ corresponds to the non-zero rows of $R_0$.
+\end{enumerate}
+
+\end{document}
