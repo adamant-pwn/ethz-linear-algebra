@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 5},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} Compute with matrices:  
+
+\begin{enumerate}
+    \item explain the concept of a vector space;
+    \item give examples that are not $\RR^m$;
+    \item define and identify subspaces;
+    \item explain when vectors span a subspace / form a basis of it;
+    \item prove that every basis has the same number of vectors;
+    \item define the dimension of a vector space;
+    \item find a basis for a given vector space / subspace;
+\end{enumerate}
+
+\paragraph{Real vector space} is a set $V$ with $+ : V \times V \to V$ and $\cdot : \mathbb R \times V \to V$, such that
+
+\begin{enumerate}
+    \item $V$ is a commutative group over $+$;
+    \item Compatibility of scalar multiplication: $\alpha (\beta \mathbf x) = (\alpha \beta) \mathbf x$;
+    \item Scalar identity: $1 \mathbf x = \mathbf x$;
+    \item Distributivities: $\alpha(\mathbf x + \mathbf y) = \alpha \mathbf x + \alpha \mathbf y$ and $(\alpha + \beta) \mathbf x = \alpha \mathbf x + \beta \mathbf x$.
+\end{enumerate}
+
+Examples: Polynomials, functions, matrices, linear recurrences, linear ODE solutions.
+
+
+\paragraph{Hamel basis} of a vector space is a maximal set of linearly independent vectors.
+
+\textbf{Equivalent definition}: $\mathbf e_1, \dots, \mathbf e_n$ s.t. any $\mathbf v \in V$ can be \textit{uniquely} represented as
+$$
+\mathbf v = v_1 \mathbf e_1 + \dots + v_n \mathbf e_n.
+$$
+
+The numbers $(v_1,\dots,v_n)$ are called \textbf{coordinates} of $\mathbf v$ in $\mathbf e_1,\dots,\mathbf e_n$.
+
+\textbf{Equivalent definition}: A minimal $\mathbf e_1, \dots, \mathbf e_n$ s.t. any $\mathbf v \in V$ has unique coordinates.
+
+\textbf{Note}: In the case of infinite bases, only finite linear combinations are considered.
+
+\paragraph{Dimension} of a vector space is the size of its basis. All bases have the same size.
+
+\paragraph{Subspace} is a non-empty subset of $V$, closed under linear operations.
+
+\paragraph{In-class exercises}
+
+\begin{enumerate}
+\item Prove that $H = \{\mathbf v \cdot \mathbf d = 0 : \mathbf v \in \RR^m \}$ is a subspace of $\RR^m$.
+\item Prove that dimension of $H$ is $m-1$.
+\item Consider the vector space $V$ of real-valued functions on $[0, 1]$.
+
+Prove that $U = \{f \in V : f(x) = f(1-x) \}$ is a subspace of $V$.
+\end{enumerate}
+
+\end{document}
