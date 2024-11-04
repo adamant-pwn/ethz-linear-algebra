@@ -22,7 +22,7 @@ Consider the sequence $T=S_1,\dots,S_{|S|}$. We do the following for each of $L_
 
 \begin{enumerate}
     \item Append $L_i$ to the beginning of $T$;
-    \item Remove any vector of $T$ that is a linear combination of preceding vectors.
+    \item Remove the last vector of $T$ that is a linear combination of preceding vectors.
 \end{enumerate}
 
 Neither of the steps changes the span of $T$ (Lemma 1.23). Therefore, $L_i \in \operatorname{span} T$, and adding $L_i$ to $T$ creates a linear dependence in $T$. This ensures that $T$ has a dependent vector (Lemma 1.19), and it is not a vector of $L$, because they are only preceded by other vectors of $L$.
