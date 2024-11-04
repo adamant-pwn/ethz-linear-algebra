@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Steinitz exchange lemma},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Steinitz exchange lemma} Let $V$ be a vector space, and $L, S \subset V$ are finite such that
+
+\begin{enumerate}
+    \item Elements of $L$ are linearly independent;
+    \item The span of $S$ is $V$.
+\end{enumerate}
+
+Then, $|L| \leq |S|$ and there is a set $S' \subset S$ such that $|S'| = |S| - |L|$ and the span of $L \cup S'$ is $V$.    
+
+\paragraph{Proof}
+
+Consider the sequence $T=S_1,\dots,S_{|S|}$. We do the following for each of $L_1,\dots,L_{|L|}$:
+
+\begin{enumerate}
+    \item Append $L_i$ to the beginning of $T$;
+    \item Remove the last vector of $T$ that is a linear combination of the previous ones.
+\end{enumerate}
+
+Neither of the steps changes the span of $T$ (Lemma 1.23). Therefore, $L_i \in \operatorname{span} T$, and adding $L_i$ to $T$ creates a linear dependence in $T$. This ensures that $T$ has a dependent vector (Lemma 1.19), and it is not a vector of $L$, because they are only preceded by other vectors of $L$.
+
+In the end, $T$ will consist of $L$ and $S' \subset S$ such that $|S'| = |S| - |L|$, and $\operatorname{span} L \cup S' = \operatorname{span} T = V$.
+
+\end{document}
