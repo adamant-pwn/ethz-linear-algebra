@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 7},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} Compute with matrices:  
+
+\begin{enumerate}
+    \item define the nullspace of a matrix;
+    \item compute a basis for the nullspace of a matrix; 
+    \item solve Ax=b by elimination to REF, read off all solutions, count the number of solutions;
+    \item define the four fundamental subspaces of a matrix: column space, row space, nullspace, left nullspace; 
+    \item compute their dimensions, depending on shape and rank of the matrix;
+    \item define orthogonal complement and orthogonal subspaces;
+    \item prove that nullspace and row space of a matrix are orthogonal;
+    \item argue about dimensions of two orthogonal subspaces;
+\end{enumerate}
+
+\paragraph{Nullspace} of $A \in \RR^{n \times m}$ is the set $\ker A = \{\mathbf x \in \RR^m : A \mathbf x = \mathbf 0\} = A^{-1}(\mathbf 0)$.
+
+\paragraph{Nullspace basis} in row-echelon form:
+
+\begin{enumerate}
+    \item Classify the variables into ``free'' and ``leading'':
+    \begin{enumerate}
+        \item Free variables: Can be assigned any value from $\RR$;
+        \item Leading variables: Fully determined from the free variables.
+    \end{enumerate}
+    \item Form the basis by setting exactly one free variable to $1$, and others to $0$, and setting up the leading variables accordingly.
+    
+    We have $\dim \ker A = |I|$ and $\dim \operatorname{im} A = \operatorname{rank} A = m - |I|$.
+\end{enumerate}
+
+Unorthodox approach: Reduce $(A^\top | I)$ to REF (suboptimal when $m \gg n$).
+
+\paragraph{Solve $Ax = b$} In general, any solution $x$ can be represented as $x = x_0 + y$, where
+\begin{itemize}
+    \item $x_0$ is \textit{any} specific solution to $Ax_0 = b$.
+    \item $y$ is a certain solution to $Ay = 0$.
+\end{itemize}
+If at least one solution exists!
+
+\paragraph{In-class exercises} Consider a system:
+
+$$
+\begin{pmatrix}
+    -1 & 2 & 5 & -2 \\
+    -3 & 3 & 12 & -3 \\
+    1 & -14 & -7 & -6
+\end{pmatrix} \begin{pmatrix}
+    x_1 \\ x_2 \\ x_3 \\ x_4
+\end{pmatrix} = \begin{pmatrix}
+    -6 \\ -15 \\ 8
+\end{pmatrix}
+$$
+
+\begin{enumerate}
+\item Determine the set of solutions $\mathcal L = \{\mathbf x \in \RR^4 : A \mathbf x = \mathbf 0\}$.
+\item Write down a basis for $\mathbf N(A)$ and $\mathbf C(A)$.
+\item What are the dimensions of $\mathbf N(A)$, $\mathbf C(A)$, $\mathbf N(A^\top)$ and $\mathbf C(A^\top)$?
+\item Find a basis of $\mathbf C(A^\top)$.
+\end{enumerate}
+
+
+
+\end{document}
