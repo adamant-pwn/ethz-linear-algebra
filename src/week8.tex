@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 8},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} 
+
+\begin{enumerate}
+    \item Define Projection, Derive formula for Projection on a subspace, Compute the Projection Matrix.
+    \item Show that when $A$ has independent columns, $A^\top A$ is invertible and symmetric.
+    \item Define Least Squares solution, derive Normal equations, compute a least squares solution.
+    \item Use Least Squares to fit a line to points (linear regression).
+\end{enumerate}
+
+\paragraph{Inner product space} is a vector space with well-defined scalar product:
+
+\begin{enumerate}
+    \item Symmetry: $\mathbf{x} \cdot \mathbf{y} = \mathbf{y} \cdot \mathbf{x}$;
+    \item Linearity: $(a \mathbf{x} + b\mathbf{y}) \cdot \mathbf{z} = a (\mathbf{x} \cdot \mathbf{z}) + b (\mathbf{y} \cdot \mathbf{z})$;
+    \item Positive-definite: $\mathbf{x} \cdot \mathbf{x} \geq 0$ and $\mathbf{x} \cdot \mathbf{x} = 0 \iff \mathbf{x} = 0$.
+\end{enumerate}
+
+\textbf{Note}: Not all vector spaces can be equipped with an inner product!
+
+\textbf{Explanation}: Abstractly, a vector space is defined over a field $\mathbb F$, and a lot of fields can't be ordered.
+
+\paragraph{Conjugate transform} of $A : V \to W$ is $ A^\top : W \to V$ such that $Ax \cdot y = x \cdot A^\top y$.
+
+\textbf{In matrices}: $A^\top$ corresponds to the transposed matrix.
+
+\paragraph{Orthogonality} Subspaces $V$ and $W$ are orthogonal if $v^\top w = 0$ for all $v \in V$ and $w \in W$.
+
+\textbf{Criterion}: $V \perp W \iff$ $e_i^\top g_j = 0$, where $\{e_i\}$ is the basis of $V$ and $\{g_j\}$ is the basis of $W$.
+
+\paragraph{Subspace intersection} of subspaces $V$ and $W$ is $V \cap W = \{v : v \in V, v \in W\}$.
+
+\textbf{Orthogonal spaces}: $V \perp W \implies V \cap W = \{0\}$, because $v \in V \cap W \implies v \cdot v = 0$.
+
+\paragraph{Subspace sum} of subspaces $V$ and $W$ is $V + W = \{v + w : v \in V, w \in W\} = \operatorname{span}(V \cup W)$.
+
+\paragraph{Dimension property} $\dim(V+W) + \dim(V \cap W) = \dim V + \dim W$.
+
+\textbf{Explanation}: Take bases of $V$ and $W$, and reform them into bases of $V+W$ and $V \cap W$.
+
+\textbf{Orthogonal spaces}: $\dim (V+W) = \dim V + \dim W$.
+
+\paragraph{Orthogonal complement} of $V$ is $V^\perp = \{w : w^\top v = 0,  \forall v \in V \}$.
+
+\textbf{Interpretation}: Union of all orthogonal subspaces of $V$.
+
+\textbf{In matrices}: $N(A) = R(A)^\top \iff \ker A \perp \operatorname{im} A^\top$, i.e. $Ax = 0 \iff x \cdot A^\top y = Ax \cdot y = 0$ for all $y$.
+
+
+\paragraph{Implicit and explicit form} Any subspace $U$ can be defined in either of the following ways:
+
+\begin{itemize}
+    \item Explicit form: $U = \{y = Ax : x \in V\} = \operatorname{im} A$, defining $y$ via parametric equation.
+    \item Implicit form: $U = \{y \in V : By = 0\} = \ker B$, defining $y$ via implicit equation.
+\end{itemize}
+
+The basis of $U$ defines $A$, while the basis of $U^\perp$ defines $B^\top$.
+
+\begin{itemize}
+    \item $(V \cap W)^\perp = V^\perp + W^\perp$, union of implicit equations $\implies$ intersection of spaces they define;
+    \item $(V+W)^\perp = V^\perp \cap W^\perp$, intersection of implicit equations $\implies$ span of the union of defined spaces.
+\end{itemize}
+
+\paragraph{Connection between $A$ and $A^\top A$} $Ax = 0 \iff \|Ax\| = 0 \iff x^\top (A^\top A) x = 0$.
+
+\paragraph{Orthogonal projection} of a vector $v$ on the subspace $S$ is $s \in S$ s.t. $\|v - s\| \to \min$.
+
+\textbf{Finding projection}: Let $\operatorname{im} A = S$ and $\operatorname{im} B = S^\perp$, then $v = Ax + By$ and $s = Az$, so
+\begin{gather*}
+    \|v - Az\|^2 \to \min \\
+    \|v\|^2 - 2 v \cdot Az + \|Az\|^2 \to \min \\
+    (Ax+By) \cdot Az + \|Az\|^2 \to \min \\
+    Ax \cdot Az + \|Az\|^2 \to \min
+\end{gather*}
+
+Thus, $z$ only depends on $x$, and for $v=Ax$, the answer is clearly $z=x$, as $\|Ax - Ax\| = 0$.
+
+We can find $x$ from $A^\top v = A^\top A x + A^\top B y = A^\top A x$, hence $x = (A^\top A)^{-1} A^\top v$.
+
+\paragraph{Least squares} Given $n$ observations $(a_i, b_i)$, where $b_i \in \RR$ and $a_i \in \RR^m$, predict $b_i = f(a_i)$.
+
+\textbf{Linear model}: $b_i \approx x^\top a_i \implies b \approx Ax \implies \|b - Ax\| \to \min$.
+
+\textbf{Fitting a line}: Given $(x_i, y_i)$ with $x, y \in \RR$, and the model is $y_i = ax_i + b$:
+
+$$
+\begin{bmatrix}
+x_1 & 1 \\
+x_2 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{bmatrix}\begin{bmatrix}
+    a \\ b
+\end{bmatrix} \approx \begin{bmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_n
+\end{bmatrix}  \iff \begin{bmatrix} x & 1\end{bmatrix} \begin{bmatrix} a \\ b \end{bmatrix} \approx \begin{bmatrix} y \end{bmatrix}
+$$
+
+Using $x = (A^\top A)^{-1} A^\top$, we get:
+
+$$
+\begin{bmatrix}
+    a \\ b
+\end{bmatrix} = \begin{bmatrix}
+x^\top x & 1^\top x \\
+x^\top 1 & 1^\top 1
+\end{bmatrix}^{-1} \begin{bmatrix} x^\top y \\ 1^\top y\end{bmatrix} \iff 
+\begin{bmatrix}
+    a \\ b
+\end{bmatrix} = \begin{bmatrix}
+\sum_i x_i^2 & \sum_i x_i \\
+\sum_i x_i & n
+\end{bmatrix}^{-1} \begin{bmatrix} \sum_i x_i y_i \\ \sum_i y_i \end{bmatrix}
+$$
+
+\textbf{Note}: If $1^\top x = 0$, then $a = \frac{x^\top y}{x^\top x}$ and $b = \frac{1^\top y}{m}$.
+
+
+
+
+\end{document}
