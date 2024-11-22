@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 9},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} 
+
+\begin{enumerate}
+    \item Orthogonal vectors, Orthonormal vectors, Orthonormal bases;
+    \item Orthogonal Matrices. Orthogonal matrices preserve norm and inner-product;
+    \item Projections with orthonormal bases;
+    \item Build an orthonormal basis with Gram-Schmidt (and show correctness of Gram-Schmidt)
+    \item QR decomposition. Projections and least squares with QR decomposition.
+\end{enumerate}
+
+\paragraph{Orthogonal vectors} means pairwise orthogonal.
+
+
+Let $e_1,\dots,e_n$ be orthogonal and $v = x_1 e_1 + \dots + x_n e_n$, then $e_i \cdot v = x_i (e_i \cdot e_i) \iff x_i = \frac{v \cdot e_i}{e_i \cdot e_i}$.
+
+\paragraph{Orthonormal vectors} means orthogonal + each vector has a unit length.
+
+Let $e_1,\dots,e_n$ be orthonormal and $v = x_1 e_1 + \dots + x_n e_n$, then $x_i = e_i \cdot v$.
+
+\paragraph{Orthonormal basis} is a basis consisting of orthonormal vectors.
+
+\paragraph{Gram matrix} For $v_1,\dots,v_n$:
+
+$$
+\Gamma(v_1,\dots,v_n) = \begin{bmatrix}
+v_1 \cdot v_1 & v_1 \cdot v_2 & \dots & v_1 \cdot v_n \\
+v_2 \cdot v_1 & v_2 \cdot v_2 & \dots & v_2 \cdot v_n \\
+\vdots & \vdots & \ddots & \vdots \\
+v_n \cdot v_1 & v_n \cdot v_2 & \dots & v_n \cdot v_n
+\end{bmatrix} = A^\top A
+$$
+
+The columns of $A$ are orthogonal $\iff$ $A^\top A$ is diagonal.
+
+The columns of $A$ are orthonormal $\iff A^\top A = I$.
+
+\paragraph{Interpretation of projection} $A^\top b$ are scalar products of $b$ with all basis vectors of $C(A)$. Then, $(A^\top A)^{-1}$ recovers a vector of $C(A)$ from its dot products with the basis of $C(A)$. $(A^\top A)^{-1}$ allows to consider coordinate system in dot products with basis vectors, rather than in their linear combinations.
+
+\paragraph{Dual basis} is the basis of $C(A)$ formed of the columns of $A (A^\top A)^{-1}$.
+
+\paragraph{Orthogonal matrix} is a matrix that preserves distances: $\|Ax-Ay\| = \|x-y\| \iff A^\top A = I$.
+
+In other words, matrix is orthogonal $\iff$ it maps $e_1,\dots,e_n$ into orthonormal basis.
+
+\paragraph{Projection with orthonormal basis} Assume $A^\top A = I$, then the projection of $y$ on $Ax$ is $A A^\top y$.
+
+\paragraph{Gram-Schmidt process} construct an orthonormal basis in $C(A)$ by subtracting projections.
+
+\paragraph{QR decomposition} $A=QR$, where $Q$ is the result of Gram-Schmidt process, and $R = Q^\top A$.
+
+\textbf{Note}: $AM = Q \implies A = QM^{-1} \implies R = M^{-1}$.
+
+\paragraph{Project with QR decomposition} $\operatorname{proj}_{C(A)} (b) = QQ^\top b$.
+
+\paragraph{In-class exercises} Consider the invertible matrices
+
+$$
+A = \begin{bmatrix}
+    0 & 0 & 1 \\
+    1 & 0 & 1 \\
+    1 & 1 & 1
+\end{bmatrix}, B = \begin{bmatrix}
+    1 & 2 & 3 & 0 \\
+    0 & 4 & 5 & 6 \\
+    0 & 0 & 7 & 8 \\
+    0 & 0 & 0 & 9
+\end{bmatrix}
+$$
+
+\begin{enumerate}
+    \item Apply the Gram-Schmidt process to the columns of $A$.
+    \item Write down a $QR$-decomposition of $A$.
+    \item Apply the Gram-Schmidt process to the columns of $B$.
+    \item Is it always true that the Gram-Schmidt process on the columns of an upper triangular $n \times n$ matrix with non-zero diagonal entries yields the canonical basis $e_1,\dots,e_n$? Provide a proof or counterexample.
+\end{enumerate}
+
+\end{document}
