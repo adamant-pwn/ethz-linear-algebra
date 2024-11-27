@@ -52,7 +52,7 @@
 
 \textbf{Interpretation}: Union of all orthogonal subspaces of $V$.
 
-\textbf{In matrices}: $N(A) = R(A)^\top \iff \ker A \perp \operatorname{im} A^\top$, i.e. $Ax = 0 \iff x \cdot A^\top y = Ax \cdot y = 0$ for all $y$.
+\textbf{In matrices}: $N(A) = R(A)^\perp \iff (\ker A)^\perp = \operatorname{im} A^\top$: $Ax = 0 \iff x \cdot A^\top y = Ax \cdot y = 0$ for all $y$.
 
 
 \paragraph{Implicit and explicit form} Any subspace $U$ can be defined in either of the following ways:
@@ -77,8 +77,8 @@ The basis of $U$ defines $A$, while the basis of $U^\perp$ defines $B^\top$.
 \begin{gather*}
     \|v - Az\|^2 \to \min \\
     \|v\|^2 - 2 v \cdot Az + \|Az\|^2 \to \min \\
-    (Ax+By) \cdot Az + \|Az\|^2 \to \min \\
-    Ax \cdot Az + \|Az\|^2 \to \min
+    -2(Ax+By) \cdot Az + \|Az\|^2 \to \min \\
+    -2Ax \cdot Az + \|Az\|^2 \to \min
 \end{gather*}
 
 Thus, $z$ only depends on $x$, and for $v=Ax$, the answer is clearly $z=x$, as $\|Ax - Ax\| = 0$.

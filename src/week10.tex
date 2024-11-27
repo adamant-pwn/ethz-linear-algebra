@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 10},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} 
+
+\begin{enumerate}
+    \item Pseudo-inverse, definition and properties;
+    \item Pseudo-inverse and minimum norm solution;
+    \item Pseudo-inverse and projection;
+    \item Polyhedron, projections of sets, Farkas lemma.
+\end{enumerate}
+
+\paragraph{Left inverse} of $A : U \to V$ is the matrix $A^\dagger$ s.t. $A^\dagger A = I$.
+
+\textbf{Interpretation}: Given $y \in \operatorname{im} A$, find the \textbf{unique} pre-image $x = A^\dagger y$.
+
+\textbf{Criterion}: There is $A^\dagger$ $\iff$ $A$ is injective $\iff$ columns of $A$ are linearly independent.
+
+\textbf{Reason}: If it's not injective, the pre-image of $y=Ax$ is non-unique.
+
+\textbf{Description}: $(AA^\dagger)^2 = AA^\dagger$ is a projection on $\operatorname{im} A$.
+
+\paragraph{Left pseudoinverse} is $A^\dagger = (A^\top A)^{-1} A^\top$. For each $y$, finds $x$ that minimizes $\|Ax-y\|$.
+
+\textbf{Extra}: $A A^\dagger$ is the orthogonal projection on $\operatorname{im} A$.
+
+\paragraph{Right inverse} of $A : U \to V$ is the matrix $A^\dagger$ s.t. $AA^\dagger = I$.
+
+\textbf{Interpretation}: Given $y \in V$, find \textbf{any} pre-image $x = A^\dagger y$.
+
+\textbf{Criterion}: There is $A^\dagger$ $\iff$ $A$ is surjective $\iff$ rows of $A$ are linearly independent.
+
+\textbf{Reason}: If it's not surjective, there are $y$ that without pre-image.
+
+\textbf{Description}: $(A^\dagger A)^2 = A^\dagger A$ is a projection on a ``representative'' subspace $\operatorname{im} A^\dagger \subset U$.
+
+\paragraph{Right pseudoinverse} is $A^\dagger = A^\top (A A^\top)^{-1}$. For each $y$, finds $x$ s.t. $Ax = y$ and $\|x\| \to \min$.
+
+\textbf{Extra}: $A^\dagger A$ is the orthogonal projection on $(\ker A)^\perp = \operatorname{im}A^\top$.
+
+\paragraph{Pseudoinverse} of a matrix $A = CR$ is $A^\dagger =  R^\dagger C^\dagger = R^\top (C^\top A R^\top)^{-1} C^\top$. Solves the problem:
+\begin{gather*}
+\|x\| \to \min, \\
+\text{s.t. } \|Ax-y\| \to \min.
+\end{gather*}
+
+\paragraph{Implied equations} Let $Ax = b$, then $(y^\top A)x = y^\top b$ for any $y$.
+
+\paragraph{Fredholm theorem} For a matrix $A$ and a vector $b$, exactly one of the following holds:
+
+\begin{enumerate}
+    \item There is $x$ s.t. $Ax = b$;
+    \item There is $y$ s.t. $y^\top A = 0$ and $y^\top b \neq 0$.
+\end{enumerate}
+
+\textbf{Interpretation}: $Ax = b$ is infeasible $\iff$ there is an infeasible implied equation.
+
+\textbf{Proof}: If there is such $x$, it means $y^\top b = y^\top (b-Ax) = 0$ for any $y$ s.t. $y^\top A = 0$. If there is no such $x$, use Gaussian elimination to find $y$.
+
+\textbf{Variant}: if there is no such $x$, use $y = Ax-b$, where $\|Ax-b\| \to \min$.
+
+\paragraph{Conic combination} of $v_1,\dots,v_n$ is $x_1 v_1 + \dots + x_n v_n$, where $x_1,\dots,x_n \geq 0$.
+
+\paragraph{Implied inequalities} Let $Ax \leq b$ and $y \geq 0$, then $y^\top Ax \leq y^\top b$.
+
+\textbf{Conic combinations}: When $x \geq 0$, the linear combination $x_1 v_1 + \dots + x_n v_n$ is called \textbf{conic}.
+
+\paragraph{Fourier-Motzkin elimination} Consider a set of inequalities $Ax \leq b$. We can eliminate $x_n$:
+
+$$
+\begin{cases}
+    x_n \geq b_i -a_i^\top x', \\
+    x_n \leq b_j - a_j^\top x'
+\end{cases} \implies b_j - a_j^\top x' \leq x_n \leq b_i - a_i^\top x'
+$$
+
+Add an inequality without $x_n$ for each such $(i, j)$. If there is a solution $x=(x',x_n)$, then it also satisfies the new system. Correspondingly, if there is a solution $x'$ of the new system, it's possible to find $x_n$ s.t. $x=(x',x_n)$ is the solution to the old system.
+
+\textbf{Note}: Each new inequality is an implied inequality of the previous ones.
+
+\textbf{Note}: Very inefficient in practice, compared to standard linear programming solvers.
+
+\paragraph{Farkas lemma} For a matrix $A$ and a vector $b$, exactly one of the following holds:
+
+\begin{enumerate}
+    \item There is $x$ s.t. $Ax \leq b$;
+    \item There is $y \geq 0$ s.t. $y^\top A = 0$ and $y^\top b < 0$.
+\end{enumerate}
+
+\textbf{Interpretation}: $Ax \leq b$ is infeasible $\iff$ there is an infeasible implied inequality.
+
+\textbf{Proof}: If there is such $x$, it means $y^\top b = y^\top (b - Ax) \geq 0$ for any $y \geq 0$ s.t. $y^\top A = 0$. If there is no such $x$, use Fourier-Motzkin elimination to find $y$.
+
+\textbf{Variant}: If there is no such $x$, use $y = Ax - b'$, where $\|Ax-b'\| \to \min$ s.t. $b' \leq b$.
+
+\paragraph{In-class exercises}
+
+Let $A \in \mathbb{R}^{m \times n}$ and $B \in \mathbb R^{n \times p}$ be arbitrary matrices.
+
+\begin{enumerate}
+    \item Prove that if $\operatorname{rank} A = \operatorname{rank} B = n$, then $(AB)^\dagger = B^\dagger A^\dagger$.
+    \item Prove that $A^\dagger A A^\dagger = A^\dagger$.
+    \item Prove that $(A^\top)^\dagger = (A^\dagger)^\top$.
+    \item Prove that $A^\dagger A$ is symmetric and is the projection matrix for $\operatorname{im} A^\top$.
+\end{enumerate}
+
+\end{document}
