@@ -1,0 +1,161 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 11},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} 
+
+\begin{enumerate}
+    \item Determinant and its properties, definition via permutations, connection to matrix inverse, co-factors and the determinant, Cramer's rule
+    \item Complex numbers, calculations with complex numbers, conversion between Cartesian form and polar form, Euler's formula
+    \item Fundamental theorem of algebra, roots of polynomials
+    \item Complex-valued vectors and matrices
+    \item Eigenvalues and eigenvectors, definition and 2x2 examples
+\end{enumerate}
+
+\paragraph{Determinant} For a set of vectors $a_1,\dots,a_n$, define the signed volume $V(a_1,\dots,a_n)$:
+
+\begin{enumerate}
+    \item $V(\alpha v, \dots) = \alpha V(v,\dots)$;
+    \item $V(a+b, \dots) = V(a,\dots) + V(b,\dots)$;
+    \item $V(a,b,\dots) = -V(b,a,\dots)$;
+    \item $V(e_1,\dots,e_n) = 1$.
+\end{enumerate}
+
+\textbf{Properties}:
+
+\begin{enumerate}
+    \item $\det AB = \det A \det B$ $\iff$ All spatial objects increase their volume by the factor of $\det$;
+    \item $A^{-1}$ exists $\iff \det A \neq 0 \iff$ columns of $A$ belong to a smaller-dimensional subspace;
+    \item $\det A = \det A^\top$;
+\end{enumerate}
+
+\paragraph{Sign of permutation} $\operatorname{sgn} \sigma$ is $(-1)^k$, where $k$ is, equivalently:
+
+\begin{enumerate}
+    \item The parity of the number of inversions in $\sigma$;
+    \item The parity of the number of swaps needed to turn $\sigma$ into identity;
+    \item The difference in parity between $n$ and the number of cycles in cycle presentation of $\sigma$.
+\end{enumerate}
+
+\paragraph{Leibniz formula} We can explicitly write out the determinant as
+
+$$
+\det A = \sum\limits_{\sigma \in S_n} \operatorname{sgn} \sigma \prod\limits_{i=1}^n A_{i \sigma_i}
+$$
+
+\paragraph{Cofactor matrix} of $A$ is the matrix $M$ s.t. $M_{ij}$ is $(-1)^{i+j}$ times the determinant of the matrix that is obtained from $A$ by removing its $i$-th row and $j$-th column.
+
+\paragraph{Laplace expansion} also called cofactor expansion:
+
+$$
+\det A = \sum\limits_{j=1}^n (-1)^{i+j} A_{ij} M_{ij} = \sum\limits_{i=1}^n (-1)^{i+j} A_{ij} M_{ij},
+$$
+
+where $M$ is the cofactor matrix. Example:
+
+$$
+\begin{vmatrix}
+    A_{11} & A_{12} & A_{13} \\
+    A_{21} & A_{22} & A_{23} \\
+    A_{31} & A_{32} & A_{33}
+\end{vmatrix} = A_{11} \begin{vmatrix}
+    A_{22} & A_{23} \\ A_{32} & A_{33}
+\end{vmatrix} - A_{12} \begin{vmatrix}
+    A_{21} & A_{23} \\ A_{31} & A_{33}
+\end{vmatrix} + A_{13} \begin{vmatrix}
+    A_{21} & A_{22} \\
+    A_{31} & A_{32}
+\end{vmatrix}
+$$
+
+\paragraph{Cramer's rule} Consider $Ax=b$. We need to find $x_1,\dots,x_n$ s.t. $b = x_1 v_1 + \dots + x_n v_n$. Then,
+
+$$
+x_i = \frac{V(v_1,\dots,v_{i-1}, b, v_{i+1}, \dots, v_n)}{V(v_1,\dots,v_{i-1}, v_i, v_{i+1}, \dots, v_n)}
+$$
+
+In other words, $x_i = \frac{\det A_i}{\det A}$, where $A_i$ replaces $v_i$ with $b$.
+
+\paragraph{Adjugate matrix} $\operatorname{adj} A = M^\top$, where $M$ is the co-factor matrix:
+
+\begin{enumerate}
+    \item $A \operatorname{adj} A = \operatorname{adj} A A = I \det A$;
+    \item If $A$ is invertible, $A^{-1} = \frac{\operatorname{adj} A}{\det A}$.
+\end{enumerate}
+
+\paragraph{Determinant in row operations} When we do Gaussian elimination,
+
+\begin{enumerate}
+    \item Multiplying a row by $\alpha$ also multiplies the determinant by $\alpha$;
+    \item Adding one row, multiplied by $\alpha$, to another does \textbf{not} change the determinant;
+    \item Swapping two rows multiplies the determinant by $-1$.
+\end{enumerate}
+
+\paragraph{Change of basis} What happens to a matrix when we switch from $e_1,\dots,e_n$ to $b_1,\dots, b_n$?
+
+Consider $v = x$ on the basis $E=(e_1,\dots,e_n)$. We want to find $y$ such that $v = By$, i.e. $y = B^{-1} x$.
+
+Then $Ax$ becomes $B(B^{-1}ABy)$, that is, $A \mapsto B^{-1} A B$.
+
+\paragraph{Similar matrices} are matrices $A$ and $B$ s.t. $A = P^{-1} BP$.
+
+\paragraph{Eigenbasis} Some basis changes turn $A$ into a nice form, e.g. $A \mapsto \operatorname{diag}(\lambda_1,\dots,\lambda_n)$.
+
+A basis, in which $A$ is diagonal is called an eigenbasis of $A$.
+
+\paragraph{Eigenvector} Any $v \neq 0$ s.t. $Av = \lambda v$ for some $\lambda$, called \textbf{eigenvalue}.
+
+
+Correspondingly, eigenbasis is any basis formed by eigenvectors.
+
+\textbf{Criterion}: $\lambda$ is an eigenvalue $\iff (A-\lambda I)v=0 \iff \det(A-\lambda I) =0$.
+
+\paragraph{Characteristic polynomial} of the matrix $A$ is $p(\lambda)=\det(A-\lambda I)$.
+
+Characteristic polynomial doesn't change when the basis is changed!
+
+Each coefficient stays invariant under the change of the basis, in particular:
+
+\begin{enumerate}
+    \item $[\lambda^0] p(\lambda) = \lambda_1 \dots \lambda_n = \det A$, the determinant of $A$;
+    \item $[\lambda^{n-1}]p(\lambda) = -(\lambda_1+\dots+\lambda_n) = -(A_{11}+\dots+A_{nn}) = -\operatorname{tr} A$, the trace of $A$.
+\end{enumerate}
+
+\paragraph{Complex numbers} Are numbers of form $a+bi \in \mathbb C$, where $i^2=-1$.
+
+Algebraically closed field: Every polynomial can be factored in linear factors.
+
+\paragraph{In-class exercises}
+
+\begin{enumerate}
+    \item For what values of $a,b,c \in \mathbb R$ is the determinant zero?
+    $$
+    A = \begin{bmatrix}
+        0 & 1 & 0 & 4 & c \\
+        a & 5 & 0 & 4 & -1 \\
+        2 & 1 & b & -1 & -3 \\
+        0 & -2 & 0 & 1 & 0 \\
+        0 & -4 & 0 & 3 & 1
+    \end{bmatrix}
+    $$
+    \item Find the determinant by performing Gaussian elimination:
+    $$
+    B = \begin{bmatrix}
+        1 & 2 & -3 \\
+        2 & 6 & 0 \\
+        -1 & -2 & 2
+    \end{bmatrix}
+    $$
+    \item How to find adjugate matrix?
+
+    \item When $n$ is odd, any $n \times n$ matrix has a real eigenvalue, why?
+
+    \item Example of a matrix that doesn't have eigenbasis.
+\end{enumerate}
+
+\end{document}
