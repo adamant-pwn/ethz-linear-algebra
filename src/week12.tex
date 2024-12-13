@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 12},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} 
+
+\begin{enumerate}
+    \item Characteristic polynomial, algebraic multiplicity, finding eigenvalues and eigenvectors, properties of eigenvalues and eigenvectors;
+    \item Linear independence of eigenvectors corresponding to distinct eigenvalues;
+    \item Determinant, trace, and connection to eigenvalues;
+    \item Eigenvalues and eigenvectors of rotations and other linear transformations;
+    \item Eigenvalues and eigenvectors of orthogonal matrices;
+    \item Eigenvalues and eigenvectors of diagonal matrices;
+    \item Eigenvalues and eigenvectors of projection matrices;
+    \item Repeated eigenvalues and geometric multiplicity;
+    \item Linear independence of eigenvectors, complete sets of real eigenvectors;
+    \item Change of basis, diagonalization, diagonalizable matrices;
+    \item Similar matrices, eigenvalues of similar matrices.
+\end{enumerate}
+
+\paragraph{Change of basis} What happens to a matrix when we switch from $e_1,\dots,e_n$ to $b_1,\dots, b_n$?
+
+Consider $v = x$ on the basis $E=(e_1,\dots,e_n)$. We want to find $y$ such that $v = By$, i.e. $y = B^{-1} x$.
+
+Then $Ax$ becomes $B(B^{-1}ABy)$, that is, $A \mapsto B^{-1} A B$.
+
+\paragraph{Similar matrices} are matrices $A$ and $B$ s.t. $A = P^{-1} BP$.
+
+\paragraph{Eigenbasis} Some basis changes turn $A$ into a nice form, e.g. $A \mapsto \operatorname{diag}(\lambda_1,\dots,\lambda_n)$.
+
+A basis, in which $A$ is diagonal is called an eigenbasis of $A$.
+
+\paragraph{Eigenvector} Any $v \neq 0$ s.t. $Av = \lambda v$ for some $\lambda$, called \textbf{eigenvalue}.
+
+
+Correspondingly, eigenbasis is any basis formed by eigenvectors.
+
+\textbf{Criterion}: $\lambda$ is an eigenvalue $\iff (A-\lambda I)v=0 \iff \det(A-\lambda I) =0$.
+
+\paragraph{Characteristic polynomial} of the matrix $A$ is $p(\lambda)=\det(\lambda I - A)$.
+
+Characteristic polynomial doesn't change when the basis is changed!
+
+Each coefficient stays invariant under the change of the basis, in particular:
+
+\begin{enumerate}
+    \item $[\lambda^0] p(\lambda) = (-1)^n\lambda_1 \dots \lambda_n = (-1)^n\det A$, the \textbf{determinant} of $A$;
+    \item $[\lambda^{n-1}]p(\lambda) = -(\lambda_1+\dots+\lambda_n) = -(A_{11}+\dots+A_{nn}) = -\operatorname{tr} A$, the \textbf{trace} of $A$.
+\end{enumerate}
+
+Every matrix has at least one (complex) eigenvalue and eigenvector.
+
+\paragraph{Linear independence} Eigenvector is not a linear combination of eigenvectors with other eigenvalues.
+\begin{align*}
+v_{n+1} = \alpha_1v_1+\dots+\alpha_{n} v_{n} &\implies \lambda v_{n+1} = \alpha_1 \lambda_1 v_1 + \dots + \alpha_{n} \lambda_{n} v_{n} \\
+&\implies \alpha_1 (\lambda_1 - \lambda) v_1 + \dots + \alpha_{n} (\lambda_n-\lambda)v_n = 0
+\end{align*}
+
+\textbf{Corollary}: All eigenvalues distinct $\implies$ there is an eigenbasis.
+
+\paragraph{Eigenvalues of rotations} $Q$ is orthogonal $\implies$ $|\lambda| = 1$.
+
+Because $\|v\| = \|Q v\| = \|\lambda v\| = |\lambda| \cdot \|v\|$.
+
+\paragraph{Eigenvalues of projections} Let $P^2 = P$, then $\lambda \in \{0, 1\}$.
+
+The basis of $\operatorname{im} P$ has eigenvalues $1$, and the basis of $\operatorname{ker} P^\top$ has eigenvalues $0$.
+
+\textbf{Note}: Also true in oblique projections because eigenvalues of $P^k$ are $\lambda^k$.
+
+\paragraph{Algebraic multiplicity} is the multiplicity of $\lambda-\lambda_i$ in $p(\lambda)$.
+
+\paragraph{Geometric multiplicity} is $\dim \operatorname{ker} (A-\lambda I)$.
+
+There is an egeinbasis $\iff$ algebraic and geometric multiplicities are the same for all eigenvalues.
+
+\paragraph{Diagonalization} With an eigenbasis, we can factorize $A = P\Lambda P^{-1}$, where $\Lambda=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$.
+
+\textbf{Note}: Columns of $P$ are the eigenvectors.
+
+
+\paragraph{In-class exercises}
+
+Let $A, B \in \mathbb R^{n \times n}$.
+
+\begin{enumerate}
+    \item Let $M$ be such that $M \begin{bmatrix} x \\ y\end{bmatrix} = \begin{bmatrix} y \\ x \end{bmatrix}$, find all eigenvalues and eigenvectors of $M$;
+    \item Construct a matrix with eigenvalues $0, 1, 2$;
+    \item Construct a non-diagonal matrix with eigenvalues $0,1,2$;
+    \item Prove that $AB$ and $BA$ have the same eigenvalues;
+    \item Assume that $B$ is invertible and $AB$ has an eigenbasis, prove that $BA$ has an eigenbasis;
+    \item Assume that both $A$ and $B$ are invertible, prove that $AB$ has an eigenbasis $\iff$ $BA$ has an eigenbasis;
+    \item Find $A$ and $B$ such that $BA$ has an eigenbasis, but $AB$ doesn't.
+\end{enumerate}
+
+\end{document}
