@@ -48,15 +48,15 @@ $$
 \det A = \sum\limits_{\sigma \in S_n} \operatorname{sgn} \sigma \prod\limits_{i=1}^n A_{i \sigma_i}
 $$
 
-\paragraph{Cofactor matrix} of $A$ is the matrix $M$ s.t. $M_{ij}$ is $(-1)^{i+j}$ times the determinant of the matrix that is obtained from $A$ by removing its $i$-th row and $j$-th column.
+\paragraph{Cofactor matrix} of $A$ is the matrix $C$ s.t. $C_{ij}$ is $(-1)^{i+j}$ times the determinant of the matrix that is obtained from $A$ by removing its $i$-th row and $j$-th column (the minor $M_{ij}$).
 
 \paragraph{Laplace expansion} also called cofactor expansion:
 
 $$
-\det A = \sum\limits_{j=1}^n (-1)^{i+j} A_{ij} M_{ij} = \sum\limits_{i=1}^n (-1)^{i+j} A_{ij} M_{ij},
+\det A = \sum\limits_{j=1}^n A_{ij} C_{ij} = \sum\limits_{i=1}^n A_{ij} C_{ij},
 $$
 
-where $M$ is the cofactor matrix. Example:
+where $C$ is the cofactor matrix. Example:
 
 $$
 \begin{vmatrix}
@@ -81,7 +81,7 @@ $$
 
 In other words, $x_i = \frac{\det A_i}{\det A}$, where $A_i$ replaces $v_i$ with $b$.
 
-\paragraph{Adjugate matrix} $\operatorname{adj} A = M^\top$, where $M$ is the co-factor matrix:
+\paragraph{Adjugate matrix} $\operatorname{adj} A = C^\top$, where $C$ is the co-factor matrix:
 
 \begin{enumerate}
     \item $A \operatorname{adj} A = \operatorname{adj} A A = I \det A$;
@@ -115,14 +115,14 @@ Correspondingly, eigenbasis is any basis formed by eigenvectors.
 
 \textbf{Criterion}: $\lambda$ is an eigenvalue $\iff (A-\lambda I)v=0 \iff \det(A-\lambda I) =0$.
 
-\paragraph{Characteristic polynomial} of the matrix $A$ is $p(\lambda)=\det(A-\lambda I)$.
+\paragraph{Characteristic polynomial} of the matrix $A$ is $p(\lambda)=\det(\lambda I - A)$.
 
 Characteristic polynomial doesn't change when the basis is changed!
 
 Each coefficient stays invariant under the change of the basis, in particular:
 
 \begin{enumerate}
-    \item $[\lambda^0] p(\lambda) = \lambda_1 \dots \lambda_n = \det A$, the determinant of $A$;
+    \item $[\lambda^0] p(\lambda) = (-1)^n\lambda_1 \dots \lambda_n = (-1)^n\det A$, the determinant of $A$;
     \item $[\lambda^{n-1}]p(\lambda) = -(\lambda_1+\dots+\lambda_n) = -(A_{11}+\dots+A_{nn}) = -\operatorname{tr} A$, the trace of $A$.
 \end{enumerate}
 
