@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mytitle={Oleksandr Kulkov. ETH Zürich. Linear Algebra. Week 13},
+            mylang=eng]{my_style}
+
+
+\begin{document}
+
+\paragraph{Topics of the week} 
+
+\begin{enumerate}
+    \item Spectral theorem: eigenvalues and eigenvectors of symmetric matrices
+    \item Rayleigh quotients and their connection to eigenvalues of symmetric matrices
+    \item Positive definite matrices, positive semidefinite matrices, Gram matrices
+    \item Cholesky decomposition
+    \item Singular value decomposition (SVD), derivation of singular value decomposition, connection to eigenvalue decomposition of $A^TA$ and $AA^T$, compact form of singular value decomposition
+    \item Singular values, left singular vectors, right singular vectors.
+\end{enumerate}
+
+\paragraph{Invariant subspace} of $A : V \to V$ is a subspace $U \subset V$ s.t. $u \in U \implies A(u) \in U$.
+
+\textbf{Note}: Any eigensubspace is invariant.
+
+\textbf{Note}: If $U$ is an invariant subspace of $A$, then $U^\perp$ is an invariant subspace of $A^\top$:
+$$
+y \in U^\perp \iff \forall x \in U: x \cdot y = 0 \implies \forall x \in U: Ax \cdot y = 0 \iff \forall x \in U : x \cdot A^\top y = 0 \iff A^\top y \in U^\perp
+$$
+In particular, when $A=A^\top$, then $U^\perp$ is an invariant subspace of $A$.
+
+\paragraph{Reduction} of $A$ on its invariant subspace $U$ is a transformation $A' : U \to U$, defined as $A'u = Au$.
+
+\textbf{Note}: If $V = U_1 + U_2$ and $U_1 \cap U_2$, then there is a basis, in which
+$$
+A = \begin{bmatrix}
+    A_1 & 0 \\ 0 & A_2
+\end{bmatrix},
+$$
+where $A_1$ and $A_2$ are reductions on $U_1$ and $U_2$ correspondingly.
+
+\paragraph{Spectral theorem} If $A = A^\top$, then $A$ has a real orthonormal eigenbasis.
+
+\textbf{Proof}: Any eigenvalue of $A$ is real. Assume $Av = \lambda v$, then
+$$
+\lambda \|v\|^2 = Av \cdot v = v \cdot Av = \bar \lambda \|v\|^2
+$$
+Now, consider eigenvector $v$ and $U = \{kv : k \in \mathbb R\}$, then $U^\perp$ is invariant subspace of $A$. It means that we can consider the reduction of $A$ on $U^\perp$ and inductively find a basis of eigenvectors of $A$ that will all be orthogonal to $v$.
+
+\textbf{Note}: It means that $A = V \Lambda V^\top = \sum\limits_{i=1}^n \lambda_i v_i v_i^\top$, where $V$ has eigenvectors as the columns.
+
+\paragraph{Bilinear form} is a function $A(x, y)$ that is linear in $x$ and $y$.
+
+\textbf{Note}: Any bilinear form can be represented in the coordinate form $A(x, y) = x^\top Ay$.
+
+\paragraph{Quadratic form} is $B(x) = A(x, x)$, where $A(x, y)$ is a bilinear form s.t. $A(x, y) = A(y, x)$.
+
+\textbf{Note}: Any quadratic form can be represented as $A(x) = x^\top Ax$, where $A = A^\top$.
+
+\paragraph{Change of basis} In matrices, $A \mapsto X^{-1} A Y$, in bilinear forms $A \mapsto X^\top A Y$.
+
+\textbf{Note}: In particular $A \mapsto V^\top AV$ for quadratic forms. Thus, only for orthonormal change of bases, $A$ changes in the same way as a quadratic form, and as a linear transformation.
+
+\paragraph{Rayleigh quotient} Let $A = A^\top$, then the Rayleigh quotient of $x \neq 0$ is
+$$
+R(x) = \frac{x^\top Ax}{x^\top x}
+$$
+For Rayleigh quotient, it holds that $R(v_{\min}) = \lambda_{\min}$ and $R(v_{\max}) = \lambda_{\max}$.
+
+\textbf{Proof}: Consider an orthonormal basis in which $A = \Lambda$:
+$$
+R(x) = \frac{\sum \lambda_i x_i^2}{\sum x_i^2} \in [\lambda_{\min}, \lambda_{\max}]
+$$
+\paragraph{Positive (semi)definite matrices} A symmetric matrix $A$ is:
+\begin{enumerate}
+    \item Positive definite if $x^\top Ax > 0$ for all $x \neq 0$;
+    \item Positive semidefinite if $x^\top Ax \geq 0$ for all $x$;
+\end{enumerate}
+
+Equivalently, all eigenvalues are positive/non-negative.
+
+\paragraph{Gram matrix} of $v_1,\dots,v_n$ is $V^\top V$, where $V = (v_1,\dots,v_n)$.
+
+\textbf{Note}: Always positive semidefinite, and definite if linearly independent.
+
+\paragraph{Cholesky decomposition} $A$ is positive semidefinite $\iff$ $A = C^\top C$, where $C$ is upper triangular.
+$$
+A=(V\sqrt\Lambda)(V\sqrt\Lambda)^\top = (QR)^\top (QR) = R^\top R
+$$
+Take $C = R$ from the $QR$ decomposition.
+
+\paragraph{Singular value decomposition} is $A = U \Sigma V^\top = \sum\limits_{i=1}^n \sigma_i u_i v_i^\top$, where $U$ and $V$ are orthogonal, and $\Sigma$ is diagonal. Columns of $U$ and $V$ are left (right) singular vectors, and elements of $\Sigma$ are singular values.
+
+\begin{enumerate}
+    \item $U$ are the eigenvectors of $A A^\top$ and $V$ are the eigenvectors of $A^\top A$;
+    \item Singular values are the square roots of eigenvalues of $A^\top A$ or $A A^\top$ (they're the same).
+\end{enumerate}
+
+
+
+\paragraph{In-class exercises}
+
+\begin{enumerate}
+    \item Let $S^\top = -S$. Prove that $-S^2$ is symmetric and positive definite.
+    \item Let $A$ be a matrix of rank $1$. Find its singular values.
+    \item Let $B_{ij}=1$. Prove that $A = I+B$ is invertible.
+\end{enumerate}
+
+\end{document}
