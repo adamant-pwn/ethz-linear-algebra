@@ -1,0 +1,216 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=head]{moloch}
+
+\usepackage[utf8]{inputenc}
+
+% Essential packages
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{ccicons}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\usepackage{xspace}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+% Configure Moloch theme settings
+\molochset{
+    sectionpage=none,
+    block=fill
+}
+
+\usefonttheme{professionalfonts}
+\usepackage{bm}
+
+% Progress bar
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\makeatletter
+\setlength{\moloch@progressinheadfoot@linewidth}{1em}
+
+\addtobeamertemplate{headline}{% 
+    \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}{section in head/foot}
+        \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+    \end{beamercolorbox}
+    \par
+}{}
+
+\setbeamertemplate{footline}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north east] at ([yshift=-5.5ex]current page.north east) {\usebeamercolor[fg]{page number in head/foot}\usebeamertemplate{page number in head/foot}};
+    \end{tikzpicture}
+}
+
+\def\beamer@writeslidentry{\clearpage\beamer@notesactions}  
+\makeatother
+
+\setbeamercolor{section in head/foot}{fg=black, bg=white}
+
+\setbeamercolor{page number in head/foot}{fg=mLightBrown}
+
+
+
+% Encoding and localization
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english]{babel}
+
+% Code listing settings
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{dkgreen}{rgb}{0,0.4,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+  language=Python,
+  basicstyle=\fontsize{5}{6}\ttfamily,
+  numbers=left,
+  stepnumber=1,
+  numbersep=0.7em,
+  backgroundcolor=\color{lightgray},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  rulecolor=\color{black},
+  tabsize=2,
+  breaklines=true,
+  breakatwhitespace=false,
+  identifierstyle=\color{blue!25!black},  
+  keywordstyle=\color{blue!90!black},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  escapeinside={\`}{\`}, 
+  escapebegin=\color{gray!50!black}\footnotesize,
+  keepspaces=true,
+  columns=fullflexible
+}
+
+% Presentation title and metadata
+\title{W0: Vectors and linear combinations}
+\date{}
+\author{Oleksandr Kulkov}
+\institute{ETH Zürich}
+\titlegraphic{\hfill\includesvg[height=0.5cm]{../../img/svg/eth}}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Intro}
+\begin{frame}{Group info}
+    \textbf{Group}: 24
+
+    \textbf{Location}: CHN G 46
+    
+    \textbf{Teaching assistant}: Oleksandr Kulkov
+
+    \textbf{Language}: English
+
+    \textbf{Focus group}\footnote{More thorough and detailed explanation of basics}: Yes
+
+    \textbf{Materials}: \small\url{https://github.com/adamant-pwn/ethz-linear-algebra}
+
+    Please don't hesitate to interrupt at any moment if have any questions!
+\end{frame}
+
+\begin{frame}{Course info}
+\begin{itemize}
+    \item Exam structure:
+    \begin{itemize}
+        \item \textbf{Calculations}: Solve standard compute tasks (answer-only);
+        \item \textbf{Proofs}: Need to justify anything that wasn't in \textit{lectures};
+        \item \textbf{Multi-choice questions}: Pick the only correct option;
+    \end{itemize}
+    \item Weekly bonus tasks: up to 0.25 extra points to grade;
+    \item Hand-ins: One exercise per week, get feedback;
+\end{itemize}
+\end{frame}
+
+\section{Scalars}
+\begin{frame}{Scalars}
+    Recall ``standard'' sets of numbers:
+
+    \begin{itemize}
+        \item $\mathbb N$: \textbf{Natural} numbers;
+        \item $\mathbb Z$: \textbf{Integer} numbers;
+        \item $\mathbb Q$: \textbf{Rational} numbers;
+        \item $\mathbb R$: \textbf{Real} numbers;
+    \end{itemize}
+
+    Represent \textit{quantity}, typically called the \textbf{scalars}\footnote{because of their role in the ``scaling''}.
+\end{frame}
+
+\section{Tuples}
+\begin{frame}{Tuples}
+    $\mathbb R^m$ is the set of \textbf{tuples}: $\mathbb R^m = \{(x_1,\dots,x_m) : x_i \in \mathbb R\}$:
+
+    \begin{itemize}
+        \item $\mathbb R^2 = \{(x, y) : x, y \in \mathbb R\}$ -- points of a 2D \textbf{plane};
+        \item $\mathbb R^3 = \{(x, y, z): x, y, z \in \mathbb R\}$ -- points of a 3D \textbf{space};
+    \end{itemize}
+
+    The \textbf{power} symbol corresponds to the \textbf{Cartesian product}:
+    $$
+    A \times B = \{(a, b) : a \in A \text{ and } b \in B\}
+    $$
+    We may use \textit{indices} to refer to the \textit{components} of a tuple.
+\end{frame}
+
+\section{Vectors}
+\begin{frame}{Vectors}
+    \textbf{Real vectors}\footnote{\textit{usually} denoted by lowercase \textbf{bold} letters} are elements of a set $V$ with:
+
+    \begin{itemize}
+        \item \textbf{Addition}: $\mathbf{u} + \mathbf{v}$ for $\mathbf{u}, \mathbf{v} \in V$;
+        \item \textbf{Scaling}: $k \mathbf{v}$ for $k \in \mathbb R$ and $\mathbf{v} \in V$;
+    \end{itemize}
+
+    Addition and scaling are collectively called \textbf{linear operations}\footnote{hence, they are the subject of \textit{linear} algebra}.
+
+    In most general case, addition and scaling are \textbf{axiomatic}\footnote{defined by their properties}.
+
+    In our course, we will mostly work with $V = \mathbb R^m$.
+\end{frame}
+
+\begin{frame}{Column vectors}
+    For $V = \mathbb R^m$, vectors are \textit{usually} represented as columns:
+    $$
+    \mathbf v = \begin{bmatrix}
+        v_1 \\ v_2 \\ \vdots \\ v_m
+    \end{bmatrix},
+    $$
+    and the addition and scaling are \textbf{component-wise}:
+    \begin{itemize}
+        \item $(\mathbf u + \mathbf v)_i = u_i + v_i$;
+        \item $(k \mathbf v)_i = k v_i$;
+    \end{itemize}
+
+    This is geometry-motivated for $m=2$ and $m=3$.
+\end{frame}
+
+\section{Geometry}
+\begin{frame}{Vector geometry}
+    In Physics, vectors are objects with \textit{direction} and \textit{magnitude}.
+\end{frame}
+
+\end{document}
