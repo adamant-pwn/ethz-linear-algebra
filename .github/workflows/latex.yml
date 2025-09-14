@@ -20,13 +20,14 @@ jobs:
       uses: xu-cheng/latex-action@v2
       with:
         compiler: latexmk
-        root_file: src/*.tex
+        root_file: '**/*.tex'
         glob_root_file: true
 
     - name: Move PDFs to /docs
       run: |
+        shopt -s globstar
         mkdir -p docs
-        mv *.pdf docs/  # Move all compiled PDFs to the /docs folder
+        mv **/*.pdf docs/
 
     - name: Commit and push generated PDFs to the repository
       run: |
