@@ -15,19 +15,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
     - name: Set up LaTeX
       uses: xu-cheng/latex-action@v2
       with:
         compiler: latexmk
         root_file: '**/*.tex'
         glob_root_file: true
+        args: -outdir=docs
 
-    - name: Move PDFs to /docs
-      run: |
-        shopt -s globstar
-        mkdir -p docs
-        mv **/*.pdf docs/
 
     - name: Commit and push generated PDFs to the repository
       run: |
