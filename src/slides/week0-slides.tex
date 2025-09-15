@@ -109,7 +109,7 @@
 \date{}
 \author{Oleksandr Kulkov}
 \institute{ETH Zürich}
-\titlegraphic{\hfill\includesvg[height=0.5cm]{../../img/svg/eth}}
+\titlegraphic{\hfill\includesvg[height=0.5cm]{../img/svg/eth}}
 
 
 \begin{document}
@@ -162,7 +162,7 @@
 
 \section{Tuples}
 \begin{frame}{Tuples}
-    $\mathbb R^m$ is the set of \textbf{tuples}: $\mathbb R^m = \{(x_1,\dots,x_m) : x_i \in \mathbb R\}$:
+    $\mathbb R^m$ is the set of \textbf{tuples}: $\mathbb R^m = \{(x_1,\dots,x_m) : x_i \in \mathbb R\}$\footnote{$x_i \in \mathbb R$ means that $x_i$ is an \textit{element} of the \textit{set} $\mathbb R$}:
 
     \begin{itemize}
         \item $\mathbb R^2 = \{(x, y) : x, y \in \mathbb R\}$ -- points of a 2D \textbf{plane};
@@ -178,11 +178,11 @@
 
 \section{Vectors}
 \begin{frame}{Vectors}
-    \textbf{Real vectors}\footnote{\textit{usually} denoted by lowercase \textbf{bold} letters} are elements of a set $V$ with:
+    \textbf{Real vectors}\footnote{in our course, denoted by lowercase \textbf{bold} letters} are elements of a set $V$, called \textbf{vector space}, with:
 
     \begin{itemize}
-        \item \textbf{Addition}: $\mathbf{u} + \mathbf{v}$ for $\mathbf{u}, \mathbf{v} \in V$;
-        \item \textbf{Scaling}: $k \mathbf{v}$ for $k \in \mathbb R$ and $\mathbf{v} \in V$;
+        \item \textbf{Addition}: $\mathbf{u} + \mathbf{v} \in V$ for $\mathbf{u}, \mathbf{v} \in V$;
+        \item \textbf{Scaling}: $k \mathbf{v} \in V$ for $k \in \mathbb R$ and $\mathbf{v} \in V$;
     \end{itemize}
 
     Addition and scaling are collectively called \textbf{linear operations}\footnote{hence, they are the subject of \textit{linear} algebra}.
@@ -193,7 +193,7 @@
 \end{frame}
 
 \begin{frame}{Column vectors}
-    For $V = \mathbb R^m$, vectors are \textit{usually} represented as columns:
+    For $V = \mathbb R^m$, our course uses columns to represent vectors:
     $$
     \mathbf v = \begin{bmatrix}
         v_1 \\ v_2 \\ \vdots \\ v_m
@@ -208,9 +208,154 @@
     This is geometry-motivated for $m=2$ and $m=3$.
 \end{frame}
 
+\begin{frame}{Core properties}
+    \begin{block}{Vector addition properties\footnote{in abstract algebra sense, vector space is a commutative group}}
+    \begin{itemize}
+        \item Associativity: $\mathbf u + (\mathbf v + \mathbf w) = (\mathbf u + \mathbf v) + \mathbf w$;
+        \item Commutativity: $\mathbf u + \mathbf v = \mathbf v + \mathbf u$;
+        \item Zero vector: $\mathbf v + \mathbf 0 = \mathbf 0 + \mathbf v = \mathbf v$;
+        \item Negatives: For any $\mathbf v \in V$, there is $-\mathbf v$ s.t. $\mathbf v + (-\mathbf v) = \mathbf 0$;
+    \end{itemize}
+    \end{block}
+    \begin{block}{Scaling properties}
+        \begin{itemize}
+            \item Compatibility with scalar multiplication: $\alpha (\beta \mathbf v) = (\alpha \beta) \mathbf v$;
+            \item Unit scaling: $1 \mathbf v = \mathbf v$;
+            \item Distributivity with vector addition: $\alpha (\mathbf u + \mathbf v) = \alpha \mathbf u + \alpha \mathbf v$;
+            \item Distributivity with scalar addition: $(\alpha+\beta) \mathbf v = \alpha \mathbf v + \beta \mathbf v$;
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 \section{Geometry}
 \begin{frame}{Vector geometry}
-    In Physics, vectors are objects with \textit{direction} and \textit{magnitude}.
+    In geometry, vectors have \textit{direction} and \textit{magnitude}\footnote{but \textbf{not} origin!}:
+
+    \begin{center}
+        \includesvg[height=4cm]{../img/svg/Vector_addition2}
+        \includesvg[height=4cm]{../img/svg/Scalar_multiplication_of_vectors}
+        
+        {\small{\textit{Addition adds vector direction, scaling changes magnitude}}}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Linear combination}
+    Let $\mathbf{v}_1, \dots, \mathbf{v}_n \in V$ and $\alpha_1, \dots, \alpha_n \in \mathbb R$:
+    $$
+    \alpha_1 \mathbf{v}_1 + \dots+\alpha_n \mathbf{v}_n \in V
+    $$
+    Some $\alpha_i$ may be zero.
+\end{frame}
+
+\section{Exercises}
+\begin{frame}{The perfect long drink (a)}
+    \begin{block}{Statement}
+    You have drinks $G$ and $T$. You have two drinks:
+    \begin{enumerate}
+        \item $15$ ml of $G$ and $85$ ml of $T$;
+        \item $35$ ml of $G$ and $65$ ml of $T$;
+    \end{enumerate}
+
+    Can we mix a perfect drink ($23$ ml of $G$ and $77$ ml of $T$)?
+    \end{block}
+\end{frame}
+
+\begin{frame}{The perfect long drink (a)}
+    Use $x$ of first drink and $y$ of second drink:
+    $$
+    x \begin{bmatrix}15 \\ 85\end{bmatrix} + y \begin{bmatrix}35 \\ 65\end{bmatrix} = \begin{bmatrix}23 \\ 77\end{bmatrix} \iff \begin{cases}
+        15x + 35y = 23 \\
+        85x + 65y = 77
+    \end{cases}
+    $$
+    Add equations: $$100(x+y) = 100 \iff x + y = 1$$
+
+    Substitute $x=1-y$ into first equation:
+    $$
+    15(1-y) + 35y = 23 \iff 20y = 8 \iff y = \frac{2}{5}
+    $$
+    From $x=1-y$, we get $x = \frac{3}{5}$. It's feasible, because $0 \leq x, y \leq 1$.
+\end{frame}
+
+\begin{frame}{The perfect long drink (b)}
+    \begin{block}{Statement}
+        Consider the set of all $100$ ml drinks:
+        $$
+        D = \left\{\begin{bmatrix}g \\ t\end{bmatrix} \in \mathbb R^2 : g, t \geq 0 \text{ and }g+t=100\right\}
+        $$
+        For $\mathbf{v} = \begin{bmatrix}15 \\ 85\end{bmatrix}$ and $\mathbf{w} = \begin{bmatrix}35\\65\end{bmatrix}$, which $100$ ml drinks can be mixed?
+    \end{block}
+\end{frame}
+
+\begin{frame}{The perfect long drink (b)}
+    Any mix can be represented as $x \mathbf{v} + y \mathbf{w}$, where $x, y \geq 0$.
+
+    Since initial drinks are $100$ ml, final drink volume is $x \cdot 100 + y \cdot 100$.
+
+    We need it to still be $100$, hence $(x + y) \cdot 100 = 100 \iff x+y=1$.
+
+    On the other hand, it is also sufficient for the drink to be in $D$, thus
+    $$
+    \hat D = \{x\mathbf v + y \mathbf w : x, y \geq 0 \text{ and } x+y=1\}
+    $$
+    $\hat D$ are convex combinations of $\mathbf v$ and $\mathbf w$, aka the segment between them.
+\end{frame}
+
+\begin{frame}{The perfect long drink (c)}
+    \begin{block}{Statement}
+        For $\mathbf{v} = \begin{bmatrix}15 \\ 85\end{bmatrix}$ and $\mathbf{w} = \begin{bmatrix}35\\65\end{bmatrix}$, which (any) drinks can be mixed?
+    \end{block}
+\end{frame}
+
+\begin{frame}{The perfect long drink (c)}
+    Since the drink no longer need to be $100$ ml, we get rid of $x+y=1$.
+
+    But, it should be $x, y \leq 1$, as we can't use more than $100\%$ of a drink.
+    $$
+    \bar D = \{x \mathbf v + y \mathbf w : 0 \leq x, y \leq 1\}
+    $$
+    $\bar D$ is a parallelogram spanned on $\mathbf 0$, $\mathbf v$, $\mathbf w$ and $\mathbf v + \mathbf w$.
+\end{frame}
+
+\begin{frame}{Geometry of linear combinations (a)}
+    \begin{block}{Statement}
+        Sketch the following set in $\mathbb R^3$:
+        $$\left\{\lambda_1 \begin{bmatrix}-1 \\ 1 \\ 1\end{bmatrix} + \lambda_2 \begin{bmatrix}-2 \\ 2 \\ 2\end{bmatrix} + \lambda_3 \begin{bmatrix}-3 \\ 3 \\ 3\end{bmatrix} : \lambda_1, \lambda_2, \lambda_3 \in \mathbb R\right\}$$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Geometry of linear combinations (a)}
+    lets use $\mathbf a$, $\mathbf b$ and $\mathbf c$ to denote vectors. Note that $\mathbf b = 2 \mathbf a$ and $\mathbf c = 3 \mathbf a$.
+
+    We can safely remove vectors that are linear combinations of others.
+
+    Thus, the set is simply $\lambda_1 \mathbf a$, aka the line going through $\mathbf 0$ and $\mathbf a$.
+\end{frame}
+
+\begin{frame}{Geometry of linear combinations (b)}
+    \begin{block}{Statement}
+        Sketch the following set in $\mathbb R^3$:
+        $$\left\{\lambda_1 \begin{bmatrix}-1 \\ 1 \\ 3\end{bmatrix} + \lambda_2 \begin{bmatrix}-2 \\ 2 \\ 0\end{bmatrix} + \lambda_3 \begin{bmatrix}-3 \\ 3 \\ 3\end{bmatrix} : \lambda_1, \lambda_2, \lambda_3 \in \mathbb R\right\}$$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Geometry of linear combinations (b)}
+    Note that $\mathbf c = \mathbf a + \mathbf b$, so we remove $\mathbf b$.
+
+    Thus, the set is $\lambda_1 \mathbf a + \lambda_2 \mathbf b$, a plane passing through $\mathbf 0$, $\mathbf a$ and $\mathbf b$.
+\end{frame}
+
+\begin{frame}{Geometry of linear combinations (c)}
+    \begin{block}{Statement}
+    Sketch the following set in $\mathbb R^3$:
+    $$\left\{\lambda_1 \begin{bmatrix}-1 \\ 1 \\ 3\end{bmatrix} + \lambda_2 \begin{bmatrix}-2 \\ 2 \\ 0\end{bmatrix} + \lambda_3 \begin{bmatrix}2 \\ 3 \\ -1\end{bmatrix} : \lambda_1, \lambda_2, \lambda_3 \in \mathbb R\right\}$$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Geometry of linear combinations (c)}
+    Vectors point in three independent directions.
+
+    The set of all linear combinations covers the whole $\mathbb R^3$.
 \end{frame}
 
 \end{document}
