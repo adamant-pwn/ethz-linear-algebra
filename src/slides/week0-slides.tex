@@ -106,7 +106,7 @@
 
 % Presentation title and metadata
 \title{W0: Vectors and linear combinations}
-\date{}
+\date{19.09.2025}
 \author{Oleksandr Kulkov}
 \institute{ETH Zürich}
 \titlegraphic{\hfill\includesvg[height=0.5cm]{../img/svg/eth}}
@@ -128,9 +128,21 @@
 
     \textbf{Focus group}\footnote{More thorough and detailed explanation of basics}: Yes
 
-    \textbf{Materials}: \small\url{https://github.com/adamant-pwn/ethz-linear-algebra}
+    \textbf{Website}: \small\url{https://ti.inf.ethz.ch/ew/courses/LA25}
 
     Please don't hesitate to interrupt at any moment if have any questions!
+\end{frame}
+
+\begin{frame}{Introductions}
+    Let's get to know each other!
+
+\begin{block}{Intro questions}
+    \begin{itemize}
+        \item Your name?
+        \item A bit about yourself?
+        \item What do you expect from a focus group?
+    \end{itemize}
+\end{block}
 \end{frame}
 
 \begin{frame}{Course info}
@@ -214,7 +226,7 @@
         \item Associativity: $\mathbf u + (\mathbf v + \mathbf w) = (\mathbf u + \mathbf v) + \mathbf w$;
         \item Commutativity: $\mathbf u + \mathbf v = \mathbf v + \mathbf u$;
         \item Zero vector: $\mathbf v + \mathbf 0 = \mathbf 0 + \mathbf v = \mathbf v$;
-        \item Negatives: For any $\mathbf v \in V$, there is $-\mathbf v$ s.t. $\mathbf v + (-\mathbf v) = \mathbf 0$;
+        \item Negatives: $\mathbf v + (-\mathbf v) = \mathbf 0$;
     \end{itemize}
     \end{block}
     \begin{block}{Scaling properties}
@@ -239,15 +251,52 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{Linear combination}
-    Let $\mathbf{v}_1, \dots, \mathbf{v}_n \in V$ and $\alpha_1, \dots, \alpha_n \in \mathbb R$:
+\begin{frame}{Linear combinations}
+
+    A \textbf{linear combination} of $\mathbf v_1, \dots, \mathbf v_n \in V$ with coeffs. $\alpha_1,\dots,\alpha_n \in \mathbb R$:
     $$
     \alpha_1 \mathbf{v}_1 + \dots+\alpha_n \mathbf{v}_n \in V
     $$
-    Some $\alpha_i$ may be zero.
+    Some $\alpha_i$ may be zero. \textbf{Trivial} combination: $\alpha_1=\dots=\alpha_n = 0$.
+
+\end{frame}
+
+\begin{frame}{Special combinations}
+    \begin{center}
+        \includegraphics[height=3cm]{../img/png/combinations}
+    \end{center}
+
+    \begin{itemize}
+        \item Affine: $\alpha_1 + \dots + \alpha_n = 1$;
+        \item Conic: $\alpha_1, \dots, \alpha_n \geq 0$;
+        \item Convex: $\alpha_1 + \dots + \alpha_n = 1$ \textit{and} $\alpha_1, \dots, \alpha_n \geq 0$.
+    \end{itemize}
+    
+    We can rewrite $\alpha_1+\dots+\alpha_n=1$ as $\alpha_1 = 1-\alpha_2-\dots-\alpha_n$:
+    $$
+    \mathbf v_1 + \alpha_2 (\mathbf v_2 - \mathbf v_1) + \dots + \alpha_n(\mathbf v_n - \mathbf v_1) \in V
+    $$
+
+    Thus, affine combinations are linear combinations with ``shifted'' origin.
 \end{frame}
 
 \section{Exercises}
+\begin{frame}{Triangle combinations}
+    \begin{block}{Statement}
+        Sketch sets of all possible linear, affine, conic and convex combinations of $3$ distinct points on a plane. Consider all cases.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Triangle combinations}
+    Linear: The whole plane or a line (if collinear with $0$).
+
+    Affine: The whole plane or a line (if collinear).
+
+    Conic: The area between ``tangent'' rays or the whole plane (if $0$ is inside).
+
+    Convex: The triangle spanned on the $3$ points.
+\end{frame}
+
 \begin{frame}{The perfect long drink (a)}
     \begin{block}{Statement}
     You have drinks $G$ and $T$. You have two drinks:
@@ -308,7 +357,12 @@
 \end{frame}
 
 \begin{frame}{The perfect long drink (c)}
-    Since the drink no longer need to be $100$ ml, we get rid of $x+y=1$.
+
+    \begin{center}
+        \includegraphics[height=4cm]{../img/png/2.c}
+    \end{center}
+
+    Since the drink no longer needs to be $100$ ml, we get rid of $x+y=1$.
 
     But, it should be $x, y \leq 1$, as we can't use more than $100\%$ of a drink.
     $$
@@ -325,6 +379,11 @@
 \end{frame}
 
 \begin{frame}{Geometry of linear combinations (a)}
+
+    \begin{center}
+        \includegraphics[height=5cm]{../img/png/3.a}
+    \end{center}
+
     lets use $\mathbf a$, $\mathbf b$ and $\mathbf c$ to denote vectors. Note that $\mathbf b = 2 \mathbf a$ and $\mathbf c = 3 \mathbf a$.
 
     We can safely remove vectors that are linear combinations of others.
@@ -340,7 +399,12 @@
 \end{frame}
 
 \begin{frame}{Geometry of linear combinations (b)}
-    Note that $\mathbf c = \mathbf a + \mathbf b$, so we remove $\mathbf b$.
+
+    \begin{center}
+        \includegraphics[height=5cm]{../img/png/3.b}
+    \end{center}
+
+    Note that $\mathbf c = \mathbf a + \mathbf b$, so we can ``ignore'' $\mathbf c$.
 
     Thus, the set is $\lambda_1 \mathbf a + \lambda_2 \mathbf b$, a plane passing through $\mathbf 0$, $\mathbf a$ and $\mathbf b$.
 \end{frame}
@@ -353,6 +417,10 @@
 \end{frame}
 
 \begin{frame}{Geometry of linear combinations (c)}
+    \begin{center}
+        \includegraphics[height=5cm]{../img/png/3.c}
+    \end{center}
+
     Vectors point in three independent directions.
 
     The set of all linear combinations covers the whole $\mathbb R^3$.
