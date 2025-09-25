@@ -1,0 +1,381 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=head]{moloch}
+
+\usepackage[utf8]{inputenc}
+
+% Essential packages
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{ccicons}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\usepackage{xspace}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+% Configure Moloch theme settings
+\molochset{
+    sectionpage=none,
+    block=fill
+}
+
+\usefonttheme{professionalfonts}
+\usepackage{bm}
+
+% Progress bar
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\makeatletter
+\setlength{\moloch@progressinheadfoot@linewidth}{1em}
+
+\addtobeamertemplate{headline}{% 
+    \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}{section in head/foot}
+        \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+    \end{beamercolorbox}
+    \par
+}{}
+
+\setbeamertemplate{footline}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north east] at ([yshift=-5.5ex]current page.north east) {\usebeamercolor[fg]{page number in head/foot}\usebeamertemplate{page number in head/foot}};
+    \end{tikzpicture}
+}
+
+\def\beamer@writeslidentry{\clearpage\beamer@notesactions}  
+\makeatother
+
+\setbeamercolor{section in head/foot}{fg=black, bg=white}
+
+\setbeamercolor{page number in head/foot}{fg=mLightBrown}
+
+
+
+% Encoding and localization
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english]{babel}
+
+% Code listing settings
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{dkgreen}{rgb}{0,0.4,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+  language=Python,
+  basicstyle=\fontsize{5}{6}\ttfamily,
+  numbers=left,
+  stepnumber=1,
+  numbersep=0.7em,
+  backgroundcolor=\color{lightgray},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  rulecolor=\color{black},
+  tabsize=2,
+  breaklines=true,
+  breakatwhitespace=false,
+  identifierstyle=\color{blue!25!black},  
+  keywordstyle=\color{blue!90!black},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  escapeinside={\`}{\`}, 
+  escapebegin=\color{gray!50!black}\footnotesize,
+  keepspaces=true,
+  columns=fullflexible
+}
+
+% Presentation title and metadata
+\title{W1: Scalar products, lengths and angles}
+\date{26.09.2025}
+\author{Oleksandr Kulkov}
+\institute{ETH Zürich}
+\titlegraphic{\hfill\includesvg[height=0.5cm]{../img/svg/eth}}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Hand-in}
+\begin{frame}{Linear combinations of vectors (a)}
+    \begin{block}{Statement}
+        Prove that every $\mathbf v \in \mathbb R^2$ is a lincomb of $\mathbf u = \begin{pmatrix}1 \\ 1\end{pmatrix}$ and $\mathbf w =\begin{pmatrix}-1 \\ 1\end{pmatrix}$
+    \end{block}
+    Need to find $\lambda$ and $\mu$ s.t. $\mathbf v = \lambda \mathbf u + \mu \mathbf w$.
+
+    Solving the system yields $\lambda = \frac{v_1+v_2}{2}$ and $\mu=\frac{v_2-v_1}{2}$.
+    
+    Beware of arithmetic mistakes!
+\end{frame}
+
+\begin{frame}{Linear combinations of vectors (b)}
+    \begin{block}{Statement}
+        For $\mathbf v = \begin{pmatrix}1 \\ 0 \\ 1\end{pmatrix}$ and $\mathbf w = \begin{pmatrix}0 \\ 1 \\ 1\end{pmatrix}$, find $\mathbf u \in \mathbb R^3$ that isn't their lincomb.
+    \end{block}
+    $\lambda \mathbf v + \mu \mathbf w = \mathbf u$ means that $\lambda = u_1$, $\mu = u_2$ and $\lambda+\mu = u_3$. We can use any vector s.t. $u_1+u_2 \neq u_3$ as an example, e.g. $(1, 1, 1)$.
+
+    \textbf{Note}: If problem asks for example, provide it, not just show it exists.
+\end{frame}
+
+\section{Geometry}
+\begin{frame}{Geometric definitions}
+    \begin{center}
+        \includesvg[height=2.5cm]{../img/svg/Dot_Product}
+    \end{center}
+    \begin{block}{Definitions}
+        \begin{itemize}
+            \item The \textbf{length} $\|\mathbf v\|$ of $\mathbf v$ is its ``magnitude''.
+            \item The \textbf{orthogonal projection} of $\mathbf u$ on $\mathbf v$ is $t \mathbf v$ s.t. $\|\mathbf u - t\mathbf v\| \to \min$.
+            \item The \textbf{scalar product} $\mathbf u \cdot \mathbf v$ of $\mathbf u$ and $\mathbf v$ is $\|\mathbf u\| \cdot \|\mathbf v\| \cos \theta$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Axioms}
+\begin{frame}{Core properties}
+    \begin{block}{Normed space}
+        \begin{itemize}
+            \item Positive-definite: $\|\mathbf v\| \geq 0$ and $\|\mathbf v\| = 0 \iff \mathbf v = \mathbf 0$
+            \item Homogeneity: $\|\alpha \mathbf v\| = |\alpha| \cdot \|\mathbf v\|$
+            \item Triangle inequality: $\|\mathbf u + \mathbf v\| \leq \|\mathbf u\| + \|\mathbf v\|$
+        \end{itemize}
+    \end{block}
+    \begin{block}{Inner product space}
+    \begin{itemize}
+        \item Commutative: $\mathbf u \cdot \mathbf v = \mathbf v \cdot \mathbf u$
+        \item Bilinear: $(\alpha \mathbf u + \beta \mathbf v) \cdot \mathbf w = \alpha(\mathbf u \cdot \mathbf w) + \beta (\mathbf v \cdot \mathbf w)$
+        \item Positive-definite: $\mathbf v \cdot \mathbf v \geq 0$ and $\mathbf v \cdot \mathbf v = 0 \iff \mathbf v = \mathbf 0$
+    \end{itemize}
+    \end{block}
+    In $\mathbb R^n$, there are standard norms and scalar products.
+\end{frame}
+
+
+\section{Units}
+\begin{frame}{Unit vectors}
+    A \textbf{unit vector} is a vector of length $1$. The \textbf{standard unit vectors} of $\mathbb R^n$:
+    $$
+    \mathbf e_1, \mathbf e_2, \dots, \mathbf e_n = \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0\end{pmatrix},
+    \begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0\end{pmatrix},
+    \dots,
+    \begin{pmatrix} 0 \\ 0 \\ \vdots \\ 1\end{pmatrix}
+    $$
+
+    Any $\mathbf v \in \mathbb R^n$ is a lincomb of the standard vectors with its coordinates:
+
+    $$
+    \mathbf v = \begin{pmatrix}
+        v_1 \\ v_2 \\ \vdots \\ v_n
+    \end{pmatrix} = 
+    \begin{pmatrix} v_1 \\ 0 \\ \vdots \\ 0\end{pmatrix} +
+    \begin{pmatrix} 0 \\ v_2 \\ \vdots \\ 0\end{pmatrix} +
+    \dots +
+    \begin{pmatrix} 0 \\ 0 \\ \vdots \\ v_n\end{pmatrix} = v_1 \mathbf e_1 + \dots + v_n \mathbf e_n
+    $$
+    We may use $\mathbf e_x, \mathbf e_y, \mathbf e_z$ for $n \leq 3$.
+\end{frame}
+
+\section{Algebra}
+\begin{frame}{Algebraic definition}
+    It is natural to assume $\mathbf e_i \cdot \mathbf e_j = 0$ for $i \neq j$ and $\mathbf e_i \cdot \mathbf e_i = 1$. From this:
+    \begin{align*}
+    \mathbf u \cdot \mathbf v &= (u_1 \mathbf e_1 + \dots + u_n \mathbf e_n) \cdot (v_1 \mathbf e_1 + \dots + v_n \mathbf e_n) \\
+    &= \sum\limits_{i=1}^n u_i v_i (\mathbf e_i \cdot \mathbf e_i) + \sum\limits_{i \neq j} u_i v_j (\mathbf e_i \cdot \mathbf e_j)
+    \end{align*}
+
+    \begin{block}{Definition}
+    \begin{itemize}
+        \item The \textbf{scalar product} of $\mathbf u, \mathbf v \in \mathbb R^n$ is the component-wise sum:
+        $$\mathbf u \cdot \mathbf v = u_1 v_1 + \dots + u_n v_n$$
+        \item The \textbf{length} of $\mathbf v \in \mathbb R^n$ is $\|\mathbf v\| = \sqrt{\mathbf v \cdot \mathbf v}$
+    \end{itemize}
+    \end{block}
+    Thus, $\mathbf v$ can be decoupled in \textit{length} $\|\mathbf v\|$ and (unit) \textit{direction vector} $\frac{\mathbf v}{\|\mathbf v\|}$.
+\end{frame}
+
+\section{Inequalities}
+\begin{frame}{Cauchy-Schwarz inequality}
+    \begin{center}
+        \includesvg[height=3cm]{../img/svg/Cauchy-Schwarz_geometry}
+    \end{center}
+    $$|\mathbf u \cdot \mathbf v| \leq \|\mathbf u\| \cdot \|\mathbf v \|$$
+
+    Allows to define the \textbf{angle} between vectors: $$\cos \theta = \frac{\mathbf u \cdot \mathbf v}{\|\mathbf u\| \cdot \|\mathbf v\|} = \frac{\mathbf u}{\|\mathbf u\|} \cdot \frac{\mathbf v}{\|\mathbf v\|}$$
+\end{frame}
+
+\begin{frame}{Inequality proof}
+    \begin{center}
+        \includesvg[height=2.5cm]{../img/svg/discriminant}
+    \end{center}
+    Let $f(t) = \|\mathbf u - t \mathbf v\|^2$. It may have at most one zero (when $\mathbf u = t \mathbf v$), but
+    $$
+    f(t) = (\mathbf u - t \mathbf v)\cdot (\mathbf u - t \mathbf v) = \|\mathbf u\|^2 - 2t(\mathbf u \cdot \mathbf v) + t^2 \|\mathbf v\|^2,
+    $$
+    so it is quadratic in $t$. Its number of zeros is determined by the sign of
+    $$
+    D = 4(\mathbf u \cdot \mathbf v)^2 - 4 \|\mathbf u\|^2 \cdot \|\mathbf v\|^2 \leq 0
+    $$
+    Moreover, $D=0 \iff |\mathbf u \cdot \mathbf v| = \|\mathbf u\| \cdot \|\mathbf v\| \iff \mathbf u = t \mathbf v$.
+\end{frame}
+
+\begin{frame}{Triangle inequality}
+    \begin{center}
+        \includesvg[height=3cm]{../img/svg/Vector_addition2}
+    \end{center}
+    $$\|\mathbf u + \mathbf v \| \leq \|\mathbf u\| + \|\mathbf v\|$$
+
+    The inequality directly follows from the Cauchy-Schwarz inequality:
+    $$\|\mathbf u + \mathbf v\|^2 \leq \|\mathbf u \|^2 + \|\mathbf v \|^2 + 2 |\mathbf u \cdot \mathbf v| \leq (\|\mathbf u\| + \|\mathbf v\|)^2$$
+\end{frame}
+
+\begin{frame}{Scalar product from norm}
+    We saw that $\|\mathbf v\| = \sqrt{\mathbf v \cdot \mathbf v}$. Can we define scalar product from norms?
+    $$
+    \|\mathbf u \pm \mathbf v\|^2 = \|\mathbf u\|^2 + \|\mathbf v\|^2 \pm 2 (\mathbf u \cdot \mathbf v) \iff \mathbf u \cdot \mathbf v = \frac{\|\mathbf u + \mathbf v\|^2 - \|\mathbf u - \mathbf v\|^2}{4}
+    $$
+
+    Most norms aren't induced by scalar product, e.g. $\mathbb R^2$ with $\|\cdot \|_1$-norm:
+    $$
+    \mathbf e_x \cdot \mathbf e_y = \frac{\|(1,1)\|_1^2-\|(1,-1)\|^2_1}{4} = \frac{2-2}{4} = 0,
+    $$
+    which is incompatible with the fact that $\mathbf e_x \neq \mathbf e_y$. \textbf{Criterion}:
+    $$
+    \|\mathbf u\|^2+\|\mathbf v\|^2 = \frac{\|\mathbf u + \mathbf v\|^2+\|\mathbf u - \mathbf v\|^2}{2}
+    $$
+    Also called the \textbf{parallelogram law}.
+\end{frame}
+
+\section{Exercises}
+
+\begin{frame}{Lines in $\mathbb R^m$ (a)}
+    \begin{block}{Statement}
+        $L \subseteq \mathbb R^m$ is a \textit{line through origin}\footnote{we will just call them lines, unless noted otherwise} if there is $\mathbf w \neq \mathbf 0$ s.t. $L = \{\lambda \mathbf w : \lambda \in \mathbb R\}$. For $\mathbf u \in L$ and $\mathbf u \neq \mathbf 0$, prove that $L = \{\lambda \mathbf u : \lambda \in \mathbb R\}$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    How to prove $A=B$ for sets:
+    \begin{itemize}
+        \item Show that $A \subseteq B$ and $B \subseteq A$
+        \item Show that $A = C$ and $B = C$ for some $C$
+    \end{itemize}
+    
+    Let $\mathbf u = \mu \mathbf w$ and $L' = \{\lambda \mathbf u : \lambda \in \mathbb R\}$. We need to show $L = L'$.
+    \begin{block}{$L' \subseteq L$}
+        Let $\mathbf v = \lambda \mathbf u$, then $\mathbf v = \lambda(\mu \mathbf w) = (\lambda \mu) \mathbf w$.
+    \end{block}
+    \begin{block}{$L \subseteq L'$}
+        Let $\mathbf v = \lambda \mathbf w$, then $\mathbf v = \lambda \left(\frac{1}{\mu} \mathbf u\right) =\frac{\lambda}{\mu} \mathbf u$, because $\mathbf w = \frac{1}{\mu} \mathbf u$.
+    \end{block}
+    In the second part, $\mu \neq 0$ because it would imply $\mathbf u = \mathbf 0$.
+\end{frame}
+
+\begin{frame}{Lines in $\mathbb R^m$ (b)}
+    \begin{block}{Statement}
+        For lines $L_1$ and $L_2$, prove that $L_1 \cap L_2 = \{\mathbf 0\}$ or $L_1 \cap L_2 = L_1 = L_2$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    Note that $\mathbf 0 \in L_1 \cap L_2$ always, because $\lambda=0$ produces $\mathbf 0$.
+
+    Now, assume there is something besides $\mathbf 0$, that is, there is $\mathbf w \in L_1 \cap L_2$, s.t. $\mathbf w \neq \mathbf 0$. Then, by ex. (a), we get $L_1 = \{\lambda \mathbf w : \lambda \in \mathbb R\} = L_2$.
+\end{frame}
+
+\begin{frame}{Lines in $\mathbb R^m$ (c)}
+    \begin{center}
+        \includesvg[height=3cm]{../img/svg/ex1.c}
+    \end{center}
+    \begin{block}{Statement}
+        Consider a line $L \subseteq \mathbb R^2$. Prove that $L$ is a hyperplane, i.e. there is $\mathbf d \neq \mathbf 0$ s.t. $L = \{\mathbf v \in \mathbb R^2: \mathbf v \cdot \mathbf d = 0\}$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    Let $L = \{\lambda \mathbf v : \lambda \in \mathbb R\}$ and $L' = \{\mathbf u \in \mathbb R^2 : \mathbf u \cdot \mathbf d = 0\}$.
+    
+    For such $\mathbf d$ to exist, it must be that $\mathbf d \cdot \lambda \mathbf v = 0$. In coordinate form:
+    $$
+    \lambda(v_x d_x + v_y d_y) = 0
+    $$
+    One possible solution is $\mathbf d =(-v_y, v_x)$.
+
+    \begin{block}{$L \subseteq L'$}
+        We picked $\mathbf d$ in a way that $\mathbf d \cdot \lambda \mathbf v =0$, so $\lambda \mathbf v \in L'$ for any $\lambda \in \mathbb R$.
+    \end{block}
+    \begin{block}{$L' \subseteq L$}
+        Let $\mathbf d \cdot \mathbf u = 0$, then $-u_x v_y + u_y v_x = 0$.
+        
+        Without loss of generality, $v_x \neq 0$, then $u_y = \frac{u_x}{v_x} v_y$ and $u_x = \frac{u_x}{v_x} v_x$, meaning that $\mathbf u = \frac{u_x}{v_x} \mathbf v$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Orthogonal projection}
+    \begin{center}
+        \includesvg[height=2.5cm]{../img/svg/Dot_Product}
+    \end{center}
+    \begin{block}{Statement}
+        Given $\mathbf u, \mathbf v \in V$, find $t$ s.t. $\|\mathbf u - t \mathbf v\| \to \min$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    Recall Cauchy-Schwarz proof, we had
+    $$
+    f(t) = \|\mathbf u - t\mathbf v\|^2 = \|\mathbf u\|^2 -2t(\mathbf u \cdot \mathbf v) + t^2 \|\mathbf v\|^2
+    $$
+    Its minimum is found at $f'(t)=0$, or:
+    $$
+    -2 (\mathbf u \cdot \mathbf v) + 2t \|\mathbf v\|^2 = 0 \iff \boxed{t = \frac{\mathbf u \cdot \mathbf v}{\mathbf v \cdot \mathbf v}}
+    $$
+    Equivalently, $(\mathbf u - t \mathbf v) \cdot \mathbf v = 0$, meaning that $\mathbf u - t \mathbf v$ is orthogonal to $\mathbf v$.
+\end{frame}
+
+\begin{frame}{Shortest path with obstacle}
+    \begin{block}{Statement}
+        Given points $\mathbf a, \mathbf b, \mathbf c \in \mathbb R^n$. Find the length of the shortest path from $\mathbf a$ to $\mathbf b$ that doesn't come to $\mathbf c$ closer than $r$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    \begin{center}
+        \includesvg[height=3cm]{../img/svg/free-path}
+    \end{center}
+    $$\|\mathbf a- \mathbf b\|$$
+    Check if $\mathbf c$ is far enough with orthogonal projection of $\mathbf c - \mathbf a$ on $\mathbf b - \mathbf a$.
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        \includesvg[height=3cm]{../img/svg/circle-path}
+    \end{center}
+    $$\|\mathbf a - \mathbf u\| + r\min(\alpha,\beta) + \|\mathbf v - \mathbf b\|$$
+    \begin{align*}
+        \|\mathbf a - \mathbf u\| = \sqrt{\|\mathbf a - \mathbf c\|^2 - r^2} & & \|\mathbf b - \mathbf v\| = \sqrt{\|\mathbf b - \mathbf c\|^2 - r^2} \\
+        \angle \mathbf u \mathbf c \mathbf a = \arccos \frac{r}{\|\mathbf a-\mathbf c\|} & & \angle \mathbf b \mathbf c \mathbf v = \arccos \frac{r}{\|\mathbf b-\mathbf c\|}
+    \end{align*}
+    $$\angle \mathbf a \mathbf c \mathbf b = \arccos \frac{(\mathbf a - \mathbf c) \cdot (\mathbf b - \mathbf c)}{\|\mathbf a - \mathbf c\| \cdot \|\mathbf b - \mathbf c\|} $$
+    $$\min(\alpha, \beta) = \angle \mathbf a \mathbf c \mathbf b - \angle \mathbf u \mathbf c \mathbf a - \angle \mathbf b \mathbf c \mathbf v$$
+\end{frame}
+
+\end{document}
