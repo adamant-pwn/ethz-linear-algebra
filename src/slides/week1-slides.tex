@@ -144,9 +144,10 @@
     \end{center}
     \begin{block}{Definitions}
         \begin{itemize}
-            \item The \textbf{length} $\|\mathbf v\|$ of $\mathbf v$ is its ``magnitude''.
-            \item The \textbf{orthogonal projection} of $\mathbf u$ on $\mathbf v$ is $t \mathbf v$ s.t. $\|\mathbf u - t\mathbf v\| \to \min$.
-            \item The \textbf{scalar product} $\mathbf u \cdot \mathbf v$ of $\mathbf u$ and $\mathbf v$ is $\|\mathbf u\| \cdot \|\mathbf v\| \cos \theta$.
+            \item \textbf{Length} $\|\mathbf v\|$ of $\mathbf v$ is its ``magnitude''.
+            \item \textbf{Vector projection} of $\mathbf u$ on $\mathbf v$ is $t \mathbf v$ s.t. $\|\mathbf u - t\mathbf v\| \to \min$.
+            \item \textbf{Scalar product} $\mathbf u \cdot \mathbf v$ of $\mathbf u$ and $\mathbf v$ is $\|\mathbf u\| \cdot \|\mathbf v\| \cos \theta$.
+            \item Vectors are \textbf{orthogonal} if $\theta=90^\circ$.
         \end{itemize}
     \end{block}
 \end{frame}
@@ -208,9 +209,10 @@
         \item The \textbf{scalar product} of $\mathbf u, \mathbf v \in \mathbb R^n$ is the component-wise sum:
         $$\mathbf u \cdot \mathbf v = u_1 v_1 + \dots + u_n v_n$$
         \item The \textbf{length} of $\mathbf v \in \mathbb R^n$ is $\|\mathbf v\| = \sqrt{\mathbf v \cdot \mathbf v}$
+        \item $\mathbf u$ and $\mathbf v$ are \textbf{orthogonal} if $\mathbf u \cdot \mathbf v = 0$
     \end{itemize}
     \end{block}
-    Thus, $\mathbf v$ can be decoupled in \textit{length} $\|\mathbf v\|$ and (unit) \textit{direction vector} $\frac{\mathbf v}{\|\mathbf v\|}$.
+    $\mathbf v$ can be decomposed in \textit{length} $\|\mathbf v\|$ and (unit) \textit{direction vector} $\frac{\mathbf v}{\|\mathbf v\|}$.
 \end{frame}
 
 \section{Inequalities}
@@ -265,7 +267,51 @@
     Also called the \textbf{parallelogram law}.
 \end{frame}
 
+\section{Independence}
+\begin{frame}{Linear independence}
+    \begin{block}{Definitions}
+        \begin{itemize}
+            \item $\mathbf v_1, \dots,\mathbf v_n$ are \textbf{linearly independent} if neither is lincomb of others.
+            \item $\operatorname{span}(\mathbf v_1, \dots, \mathbf v_n)$ is the set of all linear combinations of $\mathbf v_1, \dots, \mathbf v_n$.
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{Equivalent statements}
+        \begin{itemize}
+            \item $\mathbf v_1, \dots, \mathbf v_n$ are linearly independent
+            \item There is no \textit{non-trivial} combination $\lambda_1 \mathbf v_1 + \dots + \lambda_n \mathbf v_n = \mathbf 0$
+            \item None of the vectors is a linear combination of the \textit{previous ones}
+            \item Any vector in $\operatorname{span}(\mathbf v_1, \dots,\mathbf v_n)$ is produced by a unique combination
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Span properties}
+    \begin{itemize}
+        \item $\operatorname{span}(\mathbf v_1, \dots, \mathbf v_n, \mathbf v) = \operatorname{span}(\mathbf v_1, \dots, \mathbf v_n)$ for $\mathbf v =\lambda_1 \mathbf v_1 + \dots + \lambda_n \mathbf v_n$
+        \item $\operatorname{span}(\dots, \lambda_i \mathbf v_i, \dots) = \operatorname{span}(\dots, \mathbf v_i, \dots)$ for $\lambda_i \neq 0$
+        \item $\operatorname{span}(\dots, \mathbf v_i + \mathbf v_j, \dots) = \operatorname{span}(\dots, \mathbf v_i,\dots)$ for $i \neq j$
+    \end{itemize}
+    Can use to ``normalize'' a set of vectors without changing their span.
+\end{frame}
+
 \section{Exercises}
+
+\begin{frame}{Linear independence}
+    \begin{block}{Statement}
+        Show that the following vectors are linearly independent:
+        $$
+        \begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix},
+        \begin{pmatrix}1 \\ 1 \\ 0 \\ 0\end{pmatrix},
+        \begin{pmatrix}1 \\ 1 \\ 1 \\ 0\end{pmatrix},
+        \begin{pmatrix}1 \\ 1 \\ 1 \\ 1\end{pmatrix}
+        $$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    The $j$-th vector has $1$ in the $j$-th component, while vectors before it have $0$, so $j$-th vector can't be a linear combination of the previous ones.
+\end{frame}
 
 \begin{frame}{Lines in $\mathbb R^m$ (a)}
     \begin{block}{Statement}
