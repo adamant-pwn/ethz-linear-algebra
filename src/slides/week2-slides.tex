@@ -1,0 +1,400 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=head]{moloch}
+
+\usepackage[utf8]{inputenc}
+
+% Essential packages
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{ccicons}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\usepackage{xspace}
+\usepackage{centernot}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+% Configure Moloch theme settings
+\molochset{
+    sectionpage=none,
+    block=fill
+}
+
+\usefonttheme{professionalfonts}
+\usepackage{bm}
+
+% Progress bar
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\makeatletter
+\setlength{\moloch@progressinheadfoot@linewidth}{1em}
+
+\addtobeamertemplate{headline}{% 
+    \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}{section in head/foot}
+        \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+    \end{beamercolorbox}
+    \par
+}{}
+
+\setbeamertemplate{footline}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north east] at ([yshift=-5.5ex]current page.north east) {\usebeamercolor[fg]{page number in head/foot}\usebeamertemplate{page number in head/foot}};
+    \end{tikzpicture}
+}
+
+\def\beamer@writeslidentry{\clearpage\beamer@notesactions}  
+\makeatother
+
+\setbeamercolor{section in head/foot}{fg=black, bg=white}
+
+\setbeamercolor{page number in head/foot}{fg=mLightBrown}
+
+
+
+% Encoding and localization
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english]{babel}
+
+% Code listing settings
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{dkgreen}{rgb}{0,0.4,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+  language=Python,
+  basicstyle=\fontsize{5}{6}\ttfamily,
+  numbers=left,
+  stepnumber=1,
+  numbersep=0.7em,
+  backgroundcolor=\color{lightgray},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  rulecolor=\color{black},
+  tabsize=2,
+  breaklines=true,
+  breakatwhitespace=false,
+  identifierstyle=\color{blue!25!black},  
+  keywordstyle=\color{blue!90!black},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  escapeinside={\`}{\`}, 
+  escapebegin=\color{gray!50!black}\footnotesize,
+  keepspaces=true,
+  columns=fullflexible
+}
+
+% Presentation title and metadata
+\title{W2: Matrix-column mul, rank, transpose}
+\date{03.10.2025}
+\author{Oleksandr Kulkov}
+\institute{ETH Zürich}
+\titlegraphic{\hfill\includesvg[height=0.5cm]{../img/svg/eth}}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Hand-in}
+\begin{frame}{Orthogonality and Linear independence (a)}
+    \begin{block}{Statement}
+        For which $s \in \mathbb R$ are $\mathbf v = \begin{pmatrix}s \\ 3 \\ 2\end{pmatrix}$ and $\mathbf w = \begin{pmatrix}1 \\ 2 \\ s\end{pmatrix}$ orthogonal?
+    \end{block}
+    By definition:
+    $$\mathbf v \cdot \mathbf w = s \cdot 1 + 3 \cdot 2 + 2 \cdot s = 0 \iff 3s = -6 \iff s = -2$$
+\end{frame}
+
+\begin{frame}{Linear combinations of vectors (b)}
+    \begin{block}{Statement}
+    For which $t \in \mathbb R$ are $\mathbf u = \begin{pmatrix}t \\ t \\ 0\end{pmatrix}$, $\mathbf v = \begin{pmatrix}0 \\ 1 \\ 1\end{pmatrix}$ and $\mathbf w = \begin{pmatrix}1 \\ 0 \\ 1\end{pmatrix}$ lin. dep.?    
+    \end{block}
+    $\mathbf v$ and $\mathbf w$ are indep., so $\mathbf u = \lambda \mathbf v + \mu \mathbf w = \begin{pmatrix} \mu \\ \lambda \\ \lambda + \mu\end{pmatrix} = \begin{pmatrix}t \\ t \\ 0\end{pmatrix}$.
+
+    Can only happen for $t=0$. Avoid determinants where they aren't needed.
+\end{frame}
+
+\begin{frame}{Linear combinations of vectors (c)}
+    \begin{block}{Statement}
+        Show that if $\mathbf v \cdot \mathbf w=0$ and $\mathbf v, \mathbf w \neq \mathbf 0$, then they are lin. indep.
+
+        Find lin. indep. $\mathbf v, \mathbf w \in \mathbb R^n$ s.t. $\mathbf v \cdot \mathbf w \neq 0$.
+    \end{block}
+    
+    \begin{block}{$\mathbf v \cdot \mathbf w = 0 \implies$ lin. indep.}
+        Assume $\lambda \mathbf v + \mu \mathbf w = \mathbf 0$, then:
+        $$
+        \begin{cases}
+            \lambda \|\mathbf v\|^2 = (\lambda \mathbf v + \mu \mathbf w) \cdot \mathbf v = \mathbf 0 \cdot \mathbf v = 0 \implies \lambda = 0, \\
+            \mu \|\mathbf w\|^2 = (\lambda \mathbf v + \mu \mathbf w) \cdot \mathbf w = \mathbf 0 \cdot \mathbf w = 0 \implies \mu = 0
+        \end{cases}
+        $$
+        Hence, only trivial lin. comb. produces $\mathbf 0$.
+    \end{block}
+    \begin{block}{lin. indep. $\centernot\implies \mathbf v \cdot \mathbf w = 0$}
+        E.g. $\mathbf v = \mathbf e_1$ and $\mathbf w = \mathbf e_1 + \mathbf e_2$, with $\mathbf v \cdot \mathbf w = 1$.
+    \end{block}
+\end{frame}
+
+\section{Span}
+\begin{frame}{Exchange lemma}
+    \begin{block}{Lemma 1.28}
+        $T = \{\mathbf v_1, \dots, \mathbf v_m\} \subseteq \mathbb R^m$ are lin. indep. $\implies \operatorname{span}(T) = \mathbb R^m$.
+    \end{block}
+    Let $S = \{\mathbf e_1, \dots, \mathbf e_m\}$ be s.t. $\operatorname{span} S = \mathbb R^m$:
+
+    \begin{itemize}
+        \item Append vectors of $T$ to the front of $S$ one by one
+        \item New vector is lin. comb. of $S$, because $\operatorname{span}(S) = \mathbb R^m$
+        \item Delete first vector that is a lin. comb. of the ones before it
+        \item Deleted vector could have only been one of $\mathbf e_i$
+        \item After $m$ steps, all vectors are replaced
+    \end{itemize}
+
+    Can be generalized for any vector space $V$ instead of $\mathbb R^m$.
+\end{frame}
+
+\section{Matrices}
+\begin{frame}{Linear transformation}
+    \begin{block}{Definition}
+        \textbf{Linear transformation} is $f : V \to W$ that preserves\footnote{
+        In abstract algebra words, it is a \textbf{homomorphism} between vector spaces} \textit{linear operations}:
+        \begin{align*}
+        f(\mathbf u + \mathbf v) &= f(\mathbf u) + f(\mathbf v) \\
+        f(k \mathbf v) &= kf(\mathbf v)
+        \end{align*}
+    \end{block}
+    Similar to dot products, $f(\mathbf v)$ is fully defined by $f(\mathbf e_1),\dots,f(\mathbf e_n)$:
+    $$
+    f(\mathbf v) = f(v_1 \mathbf e_1 + \dots + v_n \mathbf e_n) = v_1 f(\mathbf e_1) + \dots + v_n f(\mathbf e_n)
+    $$
+\end{frame}
+
+\begin{frame}{Matrix}
+    \begin{block}{Definition}
+        An $m \times n$ \textbf{matrix} is a table of numbers with $m$ rows and $n$ columns.
+
+        The set of all $m \times n$ matrices is denoted $\mathbb R^{m \times n}$.
+    \end{block}
+    Matrices represent linear transformations:
+    $$
+    f(\mathbf v) = \begin{bmatrix}
+        | &   & | \\
+        f(\mathbf e_1) & \dots & f(\mathbf e_n) \\
+        | &   & |
+    \end{bmatrix} \begin{pmatrix}
+        v_1 \\ \vdots \\ v_n
+    \end{pmatrix} = v_1 f(\mathbf e_1) + \dots + v_n f(\mathbf e_n)
+    $$
+    And linear systems of equations:
+    $$\begin{cases}
+        \mathbf u_1 \cdot \mathbf v = b_1 \\ \dots \\ \mathbf u_m \cdot \mathbf v = b_m
+    \end{cases} \iff
+    \begin{bmatrix}
+        \relbar\mathbf  u_1^\top\relbar \\
+        \vdots \\
+        \relbar\mathbf u_m^\top\relbar
+    \end{bmatrix}
+    \begin{pmatrix}v_1 \\ \vdots \\ v_n\end{pmatrix}= \begin{pmatrix}b_1 \\ \vdots \\ b_m\end{pmatrix}
+    $$
+\end{frame}
+
+\begin{frame}{Matrix-vector multiplication}
+    $$A \mathbf x = \begin{bmatrix}
+        1 & 2 & 3 & 0 \\ 2 & 1 & 0 & 3 
+    \end{bmatrix} \begin{pmatrix}1 \\ 2 \\ 3 \\ 0\end{pmatrix} \iff (A \mathbf x)_i = \sum\limits_j A_{ij} x_j$$
+    \begin{block}{Lin. comb. of columns}
+        $$A \mathbf x = 
+        1 \begin{pmatrix}1 \\ 2\end{pmatrix} + 
+        2 \begin{pmatrix}2 \\ 1\end{pmatrix} +
+        3 \begin{pmatrix}3 \\ 0\end{pmatrix} +
+        0 \begin{pmatrix}0 \\ 3\end{pmatrix} = 
+        \begin{pmatrix}14 \\ 4\end{pmatrix}$$
+    \end{block}
+    \begin{block}{Scalar products with rows}
+        $$
+        A \mathbf x = \begin{pmatrix}
+            \mathbf u_1 \cdot \mathbf x \\ \mathbf u_2 \cdot \mathbf x
+        \end{pmatrix}= \begin{pmatrix}
+            1 \cdot 1 + 2 \cdot 2 + 3 \cdot 3 + 0 \cdot 0 \\
+            2 \cdot 1 + 1 \cdot 2 + 0 \cdot 3 + 3 \cdot 0
+        \end{pmatrix} = \begin{pmatrix}14 \\ 4\end{pmatrix}
+        $$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Matrix transformation}
+    \begin{block}{Definition}
+        For $A \in \mathbb R^{m \times n}$, its \textbf{matrix transformation} is the function
+        \begin{align*}
+            T_A :& \mathbb R^n \to \mathbb R^m \\
+            & T_A(\mathbf x) =  A \mathbf x
+        \end{align*}
+    \end{block}
+    $T_A(\mathbf x)_i = \sum\limits_j A_{ij} x_j \implies$ matrix transformations are linear:
+     \begin{align*}
+        T_A(\mathbf x + \mathbf y)_i &=& \sum\limits_j A_{ij} (x_j + y_j) &=& T_A(\mathbf x)_i + T_A(\mathbf y)_i \\
+        T_A(k \mathbf x)_i &=& \sum\limits_j A_{ij} kx_j &=& k T_A(\mathbf x)_i
+    \end{align*}
+\end{frame}
+
+\section{Rank}
+\begin{frame}{Column space}
+    \begin{block}{Definition}
+        The \textbf{column space} of $A = \begin{bmatrix}
+        | &   & | \\
+        \mathbf v_1 & \dots & \mathbf v_n \\
+        | &   & |
+    \end{bmatrix}$ is $\operatorname{span}(\mathbf v_1, \dots,\mathbf v_n) \subseteq \mathbb R^m$.
+    \end{block}
+    Equivalently, $\mathbf C(A) = \{A\mathbf x : \mathbf x \in V\}$, also called the \textbf{image} of $T_A$.
+    \begin{block}{Definition}
+        The column $\mathbf v_j$ is \textbf{independent} if it's not a lin. comb. of $\mathbf v_1, \dots, \mathbf v_{j-1}$.
+
+        The \textbf{column rank} of $A$ is the number of independent columns.
+    \end{block}
+    Intuitively, it is the \textit{dimension} of $\mathbf C(A)$ (to be defined later).
+\end{frame}
+
+\begin{frame}{Transpose}
+    \begin{block}{Definition}
+        The \textbf{transpose} of $A \in \mathbb R^{m \times n}$ is $A^\top \in \mathbb R^{n \times m}$ s.t. its columns are the corresponding rows of $A$, and vice versa.
+    \end{block}
+    $$
+    A = \begin{bmatrix}
+        | &   & | \\
+        \mathbf v_1 & \dots & \mathbf v_n \\
+        | &   & |
+    \end{bmatrix}
+    \iff
+    A^\top =
+    \begin{bmatrix}
+        \relbar\mathbf  v_1^\top\relbar \\
+        \vdots \\
+        \relbar\mathbf v_n^\top\relbar
+    \end{bmatrix}
+    $$
+    In index notation, $A_{ij} = A^\top _{ji}$. ``Pure'' definition:
+    $$
+    A \mathbf x \cdot \mathbf y = \mathbf x \cdot A^\top \mathbf y
+    $$
+    \textbf{Note}: Because $\mathbf x \cdot \mathbf y = \mathbf x ^\top \mathbf y$ and $(A \mathbf x)^\top = \mathbf x^\top A^\top$.
+\end{frame}
+\begin{frame}{Row space}
+    \begin{block}{Definition}
+        The \textbf{row space} of $A \in \mathbb R^{m \times n}$ is $\mathbf R(A) = \mathbf C(A^\top) \subseteq \mathbb R^n$.
+    \end{block}
+    \begin{block}{Definition}
+        The \textbf{row rank} of $A$ is the number of independent rows.
+    \end{block}
+    Row and column ranks are equal (proven later), hence we write $\operatorname{rank} A$.
+    
+    \begin{block}{Definition}
+        The \textbf{nullspace} of $A$ is $\mathbf N(A) = \{\mathbf x \in V : A \mathbf x = \mathbf 0\}$.
+    \end{block}
+    Also called the \textbf{kernel} of $T_A$.
+\end{frame}
+
+\section{Exercises}
+\begin{frame}{Parallel lines}
+    \begin{block}{Statement}
+        Show that parallel lines stay parallel under $T_A$ for any $A$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    First, we need to formalize the statement.
+    \begin{block}{Lines}
+        A \textbf{line} through $\mathbf x$ with direction $\mathbf d \neq \mathbf 0$ is $L = \{\mathbf x + t \mathbf d: t \in \mathbb R\}$.
+    \end{block}
+    \begin{block}{Parallel lines}
+        $L_1$ and $L_2$ are parallel if $\mathbf d_1 = \lambda \mathbf d_2$.
+    \end{block}
+    Then, we look at the line \textit{image}:
+    $$
+    T_A(L) = \{A \mathbf x + t A \mathbf d : t \in \mathbb R\} = \{\mathbf x' + t\mathbf d': t \in \mathbb R\},
+    $$
+    where $\mathbf x' = A\mathbf x$ and $\mathbf d' = A\mathbf d$. For two lines, we have:
+    $$
+    \mathbf d_1 = \lambda \mathbf d_2 \implies \mathbf d'_1 = A \mathbf d_1 = \lambda A \mathbf d_2 = \lambda \mathbf d_2'
+    $$
+\end{frame}
+
+\begin{frame}{Rank of a matrix (a)}
+\begin{block}{Statement}
+    Let $m \geq 2$. Consider
+    $$
+    A_m = \begin{bmatrix}
+        a_{11} & a_{12} & \dots & a_{1m} \\
+        a_{21} & a_{22} & \dots & a_{2m} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \dots & a_{mm}
+    \end{bmatrix},
+    $$
+    s.t. $a_{ij} = i+j$. Find $A_m$ for $m\in\{2,3,4\}$.
+\end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    \begin{itemize}
+        \item $A_2 = \begin{bmatrix}
+            2 & 3 \\
+            3 & 4
+        \end{bmatrix}$
+        \item $A_3 = \begin{bmatrix}
+            2 & 3 & 4 \\
+            3 & 4 & 5 \\
+            4 & 5 & 6
+        \end{bmatrix}$
+        \item $A_4 = \begin{bmatrix}
+            2 & 3 & 4 & 5\\
+            3 & 4 & 5 & 6\\
+            4 & 5 & 6 & 7\\
+            5 & 6 & 7 & 8
+        \end{bmatrix}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Rank of a matrix (b)}
+\begin{block}{Statement}
+    Let $m \geq 2$. Consider
+    $$
+    A_m = \begin{bmatrix}
+        a_{11} & a_{12} & \dots & a_{1m} \\
+        a_{21} & a_{22} & \dots & a_{2m} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \dots & a_{mm}
+    \end{bmatrix},
+    $$
+    s.t. $a_{ij} = i+j$. Find $\operatorname{rank} A_m$.
+\end{block}
+\end{frame}
+
+\begin{frame}{Solution}
+    Let $\mathbf v_1, \dots, \mathbf v_m$ be the columns of $A_m$. Then, $\mathbf v_1$ and $\mathbf v_2$ are linearly independent, so the rank is at least $2$. At the same time
+    $$\mathbf v_j - \mathbf v_{j-1} = \mathbf v_2 - \mathbf v_1 \implies \mathbf v_j = (j-1) \mathbf v_2 - (j-2) \mathbf v_1$$
+    Above, we expand $\mathbf v_{j-1}$ up to $\mathbf v_2$, or use induction.
+\end{frame}
+
+\end{document}
